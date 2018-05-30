@@ -3,13 +3,17 @@ package com.example.travelms.util;
 import java.util.List;
 
 public class Pages<T> {
-	
+
+	//页面大小
 	private Integer pageSize;
-	
+
+	//当前页
 	private Integer pageIndex;
-	
+
+	//总页数
 	private Integer totalPage;
-	
+
+	//总条数
 	private Integer totalCount;
 	
 	private List<T> list;

@@ -15,9 +15,10 @@ public class ItemControl {
 
     @RequestMapping("item")
     @ResponseBody
-    public List<Item> listItem(Item item){
+    public List<Item> listItem(Item item,Integer pageIndex,Integer pageSize){
        // item.setItemId(1);
-        List<Item> itemList=itemBiz.listItem(item);
+
+        List<Item> itemList=itemBiz.listItem(item, 0,5);
         return itemList;
     }
 }

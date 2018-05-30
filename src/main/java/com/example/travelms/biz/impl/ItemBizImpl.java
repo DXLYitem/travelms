@@ -15,8 +15,14 @@ public class ItemBizImpl implements ItemBiz {
     private ItemDao itemDao;
 
     @Override
-    public List<Item> listItem(Item item) {
+    public List<Item> listItem(Item item,Integer pageIndex,Integer pageSize) {
 
-        return itemDao.selectItem(item);
+        return itemDao.selectItem(item, pageIndex,pageSize);
+    }
+
+    @Override
+    public Integer count(Item item) {
+
+        return itemDao.count(item);
     }
 }

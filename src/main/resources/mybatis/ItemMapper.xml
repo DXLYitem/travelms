@@ -9,28 +9,24 @@
         <result column="continentName" property="continentName"></result>
     </resultMap>
 
-    <select id="selectItem"  resultMap="itemMap"  parameterType="Item" >
+    <select id="selectItem"  resultMap="itemMap" >
         SELECT ite.*,b.brandName,cou.countryName,con. continentName    FROM item ite
         LEFT JOIN theme the ON the.themeId=ite.themeId
         LEFT JOIN  country cou  ON ite.countryId=cou.countryId
         LEFT JOIN  continent con ON cou.continentId=con.continentId
         LEFT JOIN brand b ON ite.brandid=b.brandid
         <where>
-          <if test="itemId!=null">and itemId=#{itemId}</if>
+          <if test="item.itemId!=null">and ite.itemId=#{item.itemId}</if>
         </where>
-        LIMIT 0,5
+        LIMIT #{pageIndex},#{pageSize}
     </select>
 
-    <select id="count"  resultMap="itemMap"  parameterType="Item" >
-        SELECT ite.*,b.brandName,cou.countryName,con. continentName    FROM item ite
+    <select id="count"  resultMap="itemMap" >
+        SELECT COUNT(*)    FROM item ite
         LEFT JOIN theme the ON the.themeId=ite.themeId
         LEFT JOIN  country cou  ON ite.countryId=cou.countryId
         LEFT JOIN  continent con ON cou.continentId=con.continentId
         LEFT JOIN brand b ON ite.brandid=b.brandid
-        <where>
-            <if test="itemId!=null">and itemId=#{itemId}</if>
-        </where>
-        LIMIT 0,5
     </select>
 
 </mapper>
