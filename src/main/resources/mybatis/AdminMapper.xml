@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.travelms.dao.AdminDao">
+    <select id="selectAdmin"  resultType="Admin" >
+        SELECT * FROM admin
+        <where>
+            <if test="id!=null">and id=#{id}</if>
+            <if test="name!=null and name!=''"> and name=#{name}</if>
+            <if test="pwd!=null and pwd!=''"> and pwd=#{pwd}</if>
+        </where>
+    </select>
+
+</mapper>

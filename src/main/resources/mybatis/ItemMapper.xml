@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.travelms.dao.ItemDao">
+   <resultMap id="itemMap" type="Item">
+        <result column="brandName" property="brandName"></result>
+        <result column="countryName" property="countryName"></result>
+        <result column="continentName" property="continentName"></result>
+    </resultMap>
+
+    <select id="selectItem"  resultMap="itemMap"  parameterType="Item" >
+        SELECT ite.*,b.brandName,cou.countryName,con. continentName    FROM item ite
+        LEFT JOIN theme the ON the.themeId=ite.themeId
+        LEFT JOIN  country cou  ON ite.countryId=cou.countryId
+        LEFT JOIN  continent con ON cou.continentId=con.continentId
+        LEFT JOIN brand b ON ite.brandid=b.brandid
+        <where>
+          <if test="itemId!=null">and itemId=#{itemId}</if>
+        </where>
+        LIMIT 0,5
+    </select>
+
+    <select id="count"  resultMap="itemMap"  parameterType="Item" >
+        SELECT ite.*,b.brandName,cou.countryName,con. continentName    FROM item ite
+        LEFT JOIN theme the ON the.themeId=ite.themeId
+        LEFT JOIN  country cou  ON ite.countryId=cou.countryId
+        LEFT JOIN  continent con ON cou.continentId=con.continentId
+        LEFT JOIN brand b ON ite.brandid=b.brandid
+        <where>
+            <if test="itemId!=null">and itemId=#{itemId}</if>
+        </where>
+        LIMIT 0,5
+    </select>
+
+</mapper>

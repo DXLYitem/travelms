@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            index
+        </title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../static/js/vue.js"></script>
+    </head>
+    <body>
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../static/js/x-admin.js"></script>
+    <script src="../static/js/x-layui.js" charset="utf-8"></script>
+
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header header header-demo">
+                <div class="layui-main">
+                    <a class="logo" href="./index.html">
+                   <img src="../static/images/222.png" width="350" height="94"></img>
+                    </a>
+                    <ul class="layui-nav" lay-filter="">
+                      <li class="layui-nav-item">
+                        <a href="javascript:;" th:text="${session.admin.name}"></a>
+                        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+
+                          <dd><a href="login.html">切换帐号</a></dd>
+                          <dd><a href="login.html">退出</a></dd>
+                        </dl>
+                      </li>
+                      <li class="layui-nav-item x-index"><a href="../网页/index.html">前台首页</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-side layui-bg-black x-side">
+                <div class="layui-side-scroll">
+                    <ul class="layui-nav layui-nav-tree site-demo-nav" lay-filter="side">
+                    <!--数据管理-->
+                        <li class="layui-nav-item">
+                           <a class="javascript:;" href="javascript:;" _href="main.html">
+                               <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>旅游管理</cite>
+                            </a>
+                      			<dl class="layui-nav-child">
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="Data_management.html">
+                                           <cite>旅游项目管理</cite>
+                                        </a>
+                              </dd>
+                                </dd>
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="Data_management.html">
+                                            <cite>地域管理</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+                                    <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="Data_management.html">
+                                            <cite>地区管理</cite>
+                                        </a>
+                                    </dd>
+                                    </dd>
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="Data_management.html">
+                                            <cite>酒店管理</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+                            </dl>
+                        </li>
+
+                        <!--用户管理-->
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;" _href="User_management.html">
+                                <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>会员管理</cite>
+                            </a>
+                        </li>
+                        <!--交易管理-->
+                       <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;" _href="Oder_management.html">
+                                <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>订单管理</cite>
+                            </a>
+                        </li>
+
+                        <!--角色管理-->
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;" _href="Role_management.html">
+                                <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>角色管理</cite>
+                            </a>
+                        </li>
+                       <!-- &lt;!&ndash;网站信息管理&ndash;&gt;
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;">
+                                <i class="layui-icon" style="top: 3px;">&#xe629;</i><cite>网站信息管理</cite>
+                            </a>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="Home.html">
+                                            <i class="layui-icon"></i><cite>留言管理</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="About_us.html">
+                                            <i class="layui-icon"></i><cite>公告管理</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+
+                            </dl>
+                        </li>-->
+                        <!--个人信息管理-->
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;">
+                                <i class="layui-icon" style="top: 3px;">&#xe629;</i><cite>个人信息管理</cite>
+                            </a>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="My_management_edit.html">
+                                            <i class="layui-icon"></i><cite>个人信息</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+                                <dd class="">
+                                    <dd class="">
+                                        <a href="javascript:;" _href="updatePwd.html">
+                                            <i class="layui-icon"></i><cite>修改密码</cite>
+                                        </a>
+                                    </dd>
+                                </dd>
+
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="layui-tab layui-tab-card site-demo-title x-main" lay-filter="x-tab" lay-allowclose="true">
+                <div class="x-slide_left"></div>
+                <ul class="layui-tab-title">
+                    <li class="layui-this">
+                        所有旅游项目
+                        <i class="layui-icon layui-unselect layui-tab-close">ဆ</i>
+                    </li>
+                </ul>
+                <div class="layui-tab-content site-demo site-demo-body">
+                    <div class="layui-tab-item layui-show" th:include="Data_management.html">
+                       <!-- <iframe frameborder="0" src="Data_management.html" class="x-iframe"></iframe>-->
+                    </div>
+                </div>
+            </div>
+            <div class="site-mobile-shade">
+            </div>
+        </div>
+
+
+        <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+    </body>
+</html>
