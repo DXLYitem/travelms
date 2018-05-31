@@ -21,7 +21,7 @@
         LIMIT #{pageIndex},#{pageSize}
     </select>
 
-    <select id="count"  resultMap="itemMap" >
+    <select id="count" resultType="Integer">
         SELECT COUNT(*)    FROM item ite
         LEFT JOIN theme the ON the.themeId=ite.themeId
         LEFT JOIN  country cou  ON ite.countryId=cou.countryId

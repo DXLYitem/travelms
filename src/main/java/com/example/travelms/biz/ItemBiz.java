@@ -1,12 +1,12 @@
 package com.example.travelms.biz;
 
 import com.example.travelms.entity.Item;
+import com.example.travelms.util.Pages;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ItemBiz {
-    public List<Item>listItem(Item item,Integer pageIndex,Integer pageSize);
+    public Pages<Item> listItem(Item item, Integer pageIndex, Integer pageSize);
 
-    public Integer count(Item item);
 }

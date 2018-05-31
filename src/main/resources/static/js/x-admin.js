@@ -4,14 +4,14 @@ layui.use(['element'], function(){
   
   //导航的hover效果、二级菜单等功能，需要依赖element模块
   // 侧边栏点击隐藏兄弟元素
-	$('.layui-nav-item').click(function(event) {
+	$('.layui-nav-item').click(function() {
 		$(this).siblings().removeClass('layui-nav-itemed');
 	});
 
 	$('.layui-tab-title li').eq(0).find('i').remove();
 
-	height = $('.layui-layout-admin .site-demo').height();
-	$('.layui-layout-admin .site-demo').height(height-100);
+	/*height = $('.layui-layout-admin .site-demo').height();
+	$('.layui-layout-admin .site-demo').height(height-100);*/
 
 	if($(window).width()<750){
 		trun = 0;
@@ -19,7 +19,7 @@ layui.use(['element'], function(){
 	}else{
 		trun = 1;
 	}
-	$('.x-slide_left').click(function(event) {
+	/*$('.x-slide_left').click(function(event) {
 		if(trun){
 			$('.x-side').animate({left: '-200px'},200).siblings('.x-main').animate({left: '0px'},200);
 			$(this).css('background-position','0px -61px');
@@ -30,11 +30,11 @@ layui.use(['element'], function(){
 			trun=1;
 		}
 		
-	});
+	});*/
 
 
 
-  	//监听导航点击
+  	/*//监听导航点击
   	element.on('nav(side)', function(elem){
     	title = elem.find('cite').text();
     	url = elem.find('a').attr('_href');
@@ -56,6 +56,6 @@ layui.use(['element'], function(){
 		element.tabChange('x-tab', $('.layui-tab-title li').length-1);
 
     	$('.layui-tab-title li').eq(0).find('i').remove();
-  });
+  });*/
 });
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     
     <head>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
     </head>
     
     <body>
@@ -23,18 +23,46 @@
                         编号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="username" name="username" required lay-verify="required"
+                        <input type="text" id="itemId" name="username" required lay-verify="required"
                         autocomplete="off" value="1" disabled="" class="layui-input">
                     </div>
                 </div>
                 
                 <div class="layui-form-item">
                     <label for="username" class="layui-form-label">
-                        书籍类型
+                        标题
                     </label>
                     <div class="layui-input-inline">
                         <input type="text" id="username" name="username" required lay-verify="required"
-                        autocomplete="off" value="上传图片"  class="layui-input">
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        游玩时间
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username" required lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        出发城市
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username" required lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        出发时间
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username" required lay-verify="required"
+                               autocomplete="off" value="2017-01-10 16:33:45"  class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -46,15 +74,7 @@
                         class="layui-textarea" style="height: 80px;">内容就是暂时没有内容......</textarea>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label for="username" class="layui-form-label">
-                        时间
-                    </label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="username" name="username" required lay-verify="required"
-                        autocomplete="off" value="2017-01-10 16:33:45"  class="layui-input">
-                    </div>
-                </div>
+
                  <div class="layui-form-item">
                     <label for="username" class="layui-form-label">
                        状态
@@ -93,9 +113,9 @@
                 
             </form>
         </div>
-        <script src="./lib/layui/layui.js" charset="utf-8">
+        <script src="../static/lib/layui/layui.js" charset="utf-8">
         </script>
-        <script src="./js/x-layui.js" charset="utf-8">
+        <script src="../static/js/x-layui.js" charset="utf-8">
         </script>
         <script>
             layui.use(['form','layer'], function(){

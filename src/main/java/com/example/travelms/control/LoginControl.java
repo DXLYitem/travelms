@@ -36,4 +36,25 @@ public class LoginControl {
         return "redirect:login";
     }
 
+    @RequestMapping("About_us")
+    public String about(){
+        return "About_us";
+    }
+    @RequestMapping("Data_management")
+    public String data_management(){
+        return "Data_management";
+    }
+    @RequestMapping("home_add")
+    public String home_add(){
+        return "home_add";
+    }
+    @RequestMapping("home_edit")
+    public String home_edit(){
+        return "home_edit";
+    }
+    @RequestMapping("Oder_management")
+    public String oder_management(){
+        return "Oder_management";
+    }
+
 }

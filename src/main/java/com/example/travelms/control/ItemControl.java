@@ -1,12 +1,12 @@
 package com.example.travelms.control;
 import com.example.travelms.biz.ItemBiz;
 import com.example.travelms.entity.Item;
+import com.example.travelms.util.Pages;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Controller
 public class ItemControl {
@@ -15,10 +15,20 @@ public class ItemControl {
 
     @RequestMapping("item")
     @ResponseBody
-    public List<Item> listItem(Item item,Integer pageIndex,Integer pageSize){
-       // item.setItemId(1);
+    public Pages<Item> listItem(Item item,Integer pageIndex,Integer pageSize){
+        Pages<Item> pageItem=itemBiz.listItem(item, pageIndex,5);
+        return pageItem;
+    }
 
-        List<Item> itemList=itemBiz.listItem(item, 0,5);
-        return itemList;
+   @RequestMapping("updateItem")
+    public String update(){
+       System.out.println(111);
+        return  "data_management_look";
+    }
+
+    @RequestMapping("insertItem")
+    public String insert(){
+        System.out.println(111);
+        return  "Warning_management_add";
     }
 }

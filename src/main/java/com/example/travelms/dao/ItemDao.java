@@ -9,5 +9,5 @@ public interface ItemDao {
 
     public List<Item> selectItem(@Param("item")Item item,@Param("pageIndex")Integer pageIndex,@Param("pageSize") Integer pageSize);
 
-    public Integer count(Item item);
+    public Integer count();
 }
