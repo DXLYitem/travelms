@@ -1,7 +1,11 @@
 package com.example.travelms.entity;
 
 import java.io.Serializable;
-public class Country implements Serializable{
+
+/**
+ * 地区表
+ */
+public class Country implements Serializable {
     private static final long serialVersionUID = 1L;
     //地区ID
     private Integer countryId;
@@ -9,16 +13,6 @@ public class Country implements Serializable{
     private String countryName;
     //地域ID
     private Integer continentId;
-
-    private String continentName;
-
-    public String getContinentName() {
-        return continentName;
-    }
-
-    public void setContinentName(String continentName) {
-        this.continentName = continentName;
-    }
 
     public Integer getCountryId() {
         return countryId;

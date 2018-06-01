@@ -29,6 +29,7 @@
               <a><cite>旅游项目</cite></a>
             </span>
 </div>
+<div id="div">
 <form class="layui-form x-center" action="" style="width:500px">
     <div class="layui-form-pane" style="margin-top: 15px;">
         <div class="layui-form-item">
@@ -44,9 +45,9 @@
 <div class="x-body">
     <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
       <span class="x-right" style="line-height:20px">
-        <button class="layui-btn" onclick="Warning_management_add('添加旅游项目','insertItem','600','500')"><i class="layui-icon">&#xe608;</i>添加</button>
+        <button class="layui-btn" onclick="Warning_management_add('添加旅游项目','showInsertItem','600','500')"><i class="layui-icon">&#xe608;</i>添加</button>
      </span></xblock>
-    <div id="div">
+
     <table class="layui-table">
         <thead>
         <tr>
@@ -71,7 +72,7 @@
             <td>{{info.title}}</td>
             <td>{{info.playTime}}</td>
             <td>{{info.city}}</td>
-            <td>{{info.startTime}}</td>
+            <td>{{info.date}}</td>
             <td>{{info.continentName}}</td>
             <td>{{info.countryName}}</td>
             <td>{{info.brandName}}</td>
@@ -206,6 +207,21 @@
                 mo:function () {
                     index=parseInt($("#mo").text());
                     fenye();
+                },
+                ss:function () {
+                    index=1;
+                    var sou1=$("#sou").val();
+                    var sou = $.trim(sou1);
+                    $.ajax({
+                        url:"item",
+                        data:{"pageIndex":index,"title":sou,"brandName":sou,"countryName":sou,"continentName":sou,"city":sou},
+                        type:"post",
+                        dataType:"json",
+                        success:function(data){
+                            vuee.page=data;
+                        }
+
+                    })
                 }
             }
         })
@@ -214,7 +230,7 @@
         function  fenye() {
             $.ajax({
                 url:"item",
-                data:{pageIndex:index},
+                data:{"pageIndex":index},
                 type:"post",
                 dataType:"json",
                 success:function(data){
@@ -226,7 +242,7 @@
 
         $.ajax({
             url:"item",
-            data:{pageIndex:1},
+            data:{"pageIndex":1},
             type:"post",
             dataType:"json",
             success:function(data){;

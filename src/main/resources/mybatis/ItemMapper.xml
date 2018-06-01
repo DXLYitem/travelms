@@ -16,7 +16,11 @@
         LEFT JOIN  continent con ON cou.continentId=con.continentId
         LEFT JOIN brand b ON ite.brandid=b.brandid
         <where>
-          <if test="item.itemId!=null">and ite.itemId=#{item.itemId}</if>
+          <if test="item.title!=null and item.title!=''"> or ite.title  LIKE CONCAT ('%',#{item.title},'%')</if>
+            <if test="item.brandName!=null and item.brandName!=''">or b.brandName LIKE CONCAT ('%',#{item.brandName},'%')</if>
+            <if test="item.countryName!=null and item.countryName!=''">or cou.countryName LIKE CONCAT ('%',#{item.countryName},'%')</if>
+            <if test="item.continentName!=null and item.continentName!=''">or con.continentName LIKE CONCAT ('%',#{item.continentName},'%')</if>
+            <if test="item.city!=null and item.city!=''">or ite.city LIKE CONCAT ('%',#{item.city},'%')</if>
         </where>
         LIMIT #{pageIndex},#{pageSize}
     </select>
@@ -27,6 +31,19 @@
         LEFT JOIN  country cou  ON ite.countryId=cou.countryId
         LEFT JOIN  continent con ON cou.continentId=con.continentId
         LEFT JOIN brand b ON ite.brandid=b.brandid
+        <where>
+            <if test="item.title!=null and item.title!=''"> or ite.title  LIKE CONCAT ('%',#{item.title},'%')</if>
+            <if test="item.brandName!=null and item.brandName!=''">or b.brandName LIKE CONCAT ('%',#{item.brandName},'%')</if>
+            <if test="item.countryName!=null and item.countryName!=''">or cou.countryName LIKE CONCAT ('%',#{item.countryName},'%')</if>
+            <if test="item.continentName!=null and item.continentName!=''">or con.continentName LIKE CONCAT ('%',#{item.continentName},'%')</if>
+            <if test="item.city!=null and item.city!=''">or ite.city LIKE CONCAT ('%',#{item.city},'%')</if>
+        </where>
     </select>
+
+
+    <insert id="insertItem" parameterType="Item">
+           INSERT INTO item(title,EXPLAIN,playTime,price,countryId,hobbyId,travelId,styleId,trafficId,picpath,startTime)
+            VALUE(?,?,?,?,?,?,?,?,?,?,NOW())
+    </insert>
 
 </mapper>

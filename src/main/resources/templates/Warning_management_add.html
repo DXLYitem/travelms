@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     
     <head>
         <meta charset="utf-8">
@@ -12,44 +12,139 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+        <script src="../static/js/x-layui.js" charset="utf-8"></script>
     </head>
     
     <body>
         <div class="x-body">
-            <form class="layui-form">
+            <form class="layui-form" th:action="@{/insertItem}" th:method="post" >
                 <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        类型名称</label>
+                    <label  class="layui-form-label">
+                        标题</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input">
+                        <input type="text" class="layui-input" placeholder="如（德国 妙趣童话王国）">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">必填</div>
+
                 </div>
-                
-               
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        游玩时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（8晚10天）">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        出发城市</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（北京）">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        价格</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（1000000）">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        地域</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>欧洲</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        地点</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>英国</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行偏好</label>
+                    <div class="layui-input-inline">
+                        <select>
+                           <option>请选择</option>
+                            <option th:each="h : ${hobbyList}" th:value="${h.hobbyId}"><span th:text="${h.hobbyName}">出游首选</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行主题</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>请选择</option>
+                            <option th:each="tr : ${travelList}" th:value="${tr.travelId}"><span th:text="${tr.travelName}">亲子优选</span></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        交通工具</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>请选择</option>
+                            <option th:each="traff : ${trafficList}" th:value="${traff.trafficId}"><span th:text="${traff.trafficName}">商务舱</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行方式</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>请选择</option>
+                            <option th:each="sy : ${styleList}" th:value="${sy.styleId}"><span th:text="${sy.styleName}">私享游</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        酒店品牌</label>
+                    <div class="layui-input-inline">
+                        <select>
+                            <option>请选择</option>
+                            <option th:each="br : ${brandList}" th:value="${br.brandId}"><span th:text="${br.brandName}">****</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        上传图片</label>
+                    <div class="layui-input-inline">
+                        <input type="file" class="layui-input">
+                    </div>
+                </div>
+
                 <div class="layui-form-item layui-form-text">
                     <label for="L_sign" class="layui-form-label">
-                        备注信息
+                        说明
                     </label>
                     <div class="layui-input-block">
                         <textarea placeholder="随便写些什么刷下存在感" id="L_sign" name="sign" autocomplete="off"
-                        class="layui-textarea" style="height: 80px;"></textarea>
+                                  class="layui-textarea" style="height: 80px;"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_sign" class="layui-form-label">
                     </label>
-                    <button class="layui-btn" key="set-mine" lay-filter="save" lay-submit>
-                        提交
-                    </button>
+                    <p onclick="x_admin_close()"><input type="submit" class="layui-btn" key="set-mine" lay-filter="save" lay-submit value="提交"/></p>
+
                 </div>
             </form>
         </div>
-        <script src="./lib/layui/layui.js" charset="utf-8">
-        </script>
-        <script src="./js/x-layui.js" charset="utf-8">
-        </script>
+
         <script>
             layui.use(['form','layer'], function(){
                 $ = layui.jquery;
@@ -57,7 +152,7 @@
               ,layer = layui.layer;
             
              
-              //监听提交
+           /*   //监听提交
               form.on('submit(save)', function(data){
                 console.log(data);
                 layer.alert("提交成功", {icon: 6},function () {
@@ -68,7 +163,7 @@
                 });
                 return false;
               });
-              
+              */
               
             });
         </script>

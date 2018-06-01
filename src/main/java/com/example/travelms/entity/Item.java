@@ -37,8 +37,17 @@ public class Item implements Serializable {
     //旅行方式ID
     private Integer styleId;
 
+    private  String date;
 
-   //酒店名
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    //酒店名
     private  String brandName;
     //地区名
     private  String countryName;

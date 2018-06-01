@@ -20,11 +20,11 @@ public class ItemBizImpl implements ItemBiz {
         if(pageIndex==null || pageIndex==0) {
             pageIndex=1;
         }
-        Integer num=itemDao.count();
+        Integer num=itemDao.count(item);
         Pages<Item> page=new Pages<Item>();
         page.setPageIndex(pageIndex);
         page.setPageSize(pageSize);
-        page.setTotalCount(itemDao.count());
+        page.setTotalCount(itemDao.count(item));
         page.setList(itemDao.selectItem(item,(pageIndex-1)*pageSize,pageSize));
 
         return page;
