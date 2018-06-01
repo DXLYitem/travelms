@@ -59,7 +59,7 @@
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon" id="cid">&#xe642;</i>
                 </a>
-                <a title="删除" href="javascript:;" onclick="data_management_del(this,'1')"
+                <a id="del" title="删除" href="javascript:;" v-on:click="del(continent.continentId,$event)"
                    style="text-decoration:none">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
@@ -94,33 +94,6 @@
         form = layui.form();//弹出层
     });
 
-   //以上模块根据需要引入
-
-   //批量删除提交
-   function delAll () {
-       var checkArry = document.getElementsByName("checkbox");
-       for (var i = 0; i < checkArry.length; i++) {
-           if(checkArry[i].checked == true){
-               //选中的操作
-               $("#x-link").find("tr").each(function(){
-                   var tdArr = $(this).children().text();
-
-                   var t1 =$(this).find('td').eq(1).text();
-                   alert(t1);
-
-
-
-               });
-               layer.confirm('确认要删除吗？',function(index){
-                   //捉到所有被选中的，发异步进行删除
-                   layer.msg('删除成功', {icon: 1});
-               });
-
-               return;
-           }
-       }
-   }
-
     /*用户-添加*/
     function Warning_management_add(title,url,w,h){
         x_admin_show(title,url,w,h);
@@ -129,15 +102,6 @@
     // 编辑
     function data_management_look (title,url,id,w,h) {
         x_admin_show(title,url,w,h);
-    }
-
-    /*删除*/
-    function data_management_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
     }
 
    $(document).ready(function(){
@@ -164,6 +128,25 @@
                mo:function () {
                    index=parseInt($("#mo").text());
                    fenye();
+               },
+               //删除地域
+               del:function (index,event) {
+                   layer.confirm('确认要删除吗？',function(i){
+                       $.ajax({
+                           url: "deleteContinen",
+                           data: {"continentId": index},
+                           type: "post",
+                           dataType: "json",
+                           success: function (data) {
+
+
+                             /*  alert($(event.currentTarget).text());
+                               $(event.currentTarget).hide();*/
+                               layer.msg('已删除!',{icon:1,time:1000});
+
+                           }
+                       })
+                   });
                }
            }
        })
@@ -181,13 +164,12 @@
 
            })
        }
-
        $.ajax({
            url:"continen",
            data:{pageIndex:1},
            type:"post",
            dataType:"json",
-           success:function(data){;
+           success:function(data){
                vuee.page=data;
            }
        })

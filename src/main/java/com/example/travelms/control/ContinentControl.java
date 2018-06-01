@@ -27,7 +27,7 @@ public class ContinentControl {
     }
     @RequestMapping("updateContinen")
     public String updateContin(){
-        System.out.println(111);
+
         return  "continen_look";
     }
 
@@ -36,5 +36,9 @@ public class ContinentControl {
         System.out.println(13456);
         return  "redirect:continen";
     }
-
+    @RequestMapping("deleteContinen")
+    @ResponseBody
+    public int del(Integer continentId){
+      return continentBiz.delBycontId(continentId);
+    }
 }

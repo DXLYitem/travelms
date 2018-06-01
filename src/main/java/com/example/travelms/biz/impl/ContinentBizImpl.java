@@ -43,16 +43,11 @@ public class ContinentBizImpl implements ContinentBiz {
     public int delBycontId(Integer continentId) {
         String conKey="conKey";
 
-        if(redisUtil.exists(conKey)){
-            Object o = redisUtil.lRange(conKey, 0, redisUtil.length(conKey)).get(0);
-            return (int) o;
-        }else{
-
+        if(redisUtil.exists(conKey)) {
+            redisUtil.remove(conKey);
+        }
            int num=continentDao.deleteBycontinentId(continentId);
-
-            redisUtil.lPush(conKey,num);
             return num;
         }
 
-    }
 }
