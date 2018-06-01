@@ -57,8 +57,8 @@
                                     </dd>
                                 </dd>
                                 <dd class="">
-                                    <dd class="item">
-                                        <a href="javascript:;" _href_="home_add">
+                                    <dd class="continen">
+                                        <a href="javascript:;" _href_="Continen_management">
                                             <cite>地域管理</cite>
                                         </a>
                                     </dd>
@@ -152,6 +152,12 @@
                     var html=$(this).find("a").attr("_href_");
                     $(".layui-show").load(html);
                 });
+
+                $(".continen").on("click",function () {
+                    var html=$(this).find("a").attr("_href_");
+                    $(".layui-show").load(html);
+                });
+
             });
         var _hmt = _hmt || [];
         (function() {
