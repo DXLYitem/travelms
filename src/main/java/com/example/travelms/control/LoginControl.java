@@ -44,9 +44,9 @@ public class LoginControl {
     public String data_management(){
         return "Data_management";
     }
-    @RequestMapping("home_add")
+    @RequestMapping("Continen_management")
     public String home_add(){
-        return "home_add";
+        return "Continen_management";
     }
     @RequestMapping("Country_management")
     public String country_management(){

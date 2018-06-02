@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.travelms.dao.ContinentDao">
+
+    <!--地域表查询映射-->
+    <select id="selectContinent" resultType="Continent">
+        SELECT * FROM  continent
+        <where>
+           <if test="con.continentId !=null">and continentId=#{con.continentId}</if>
+        </where>
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+    <!--查询地域总条数-->
+    <select id="continentCount" resultType="Integer">
+         SELECT COUNT(*) FROM  continent
+    </select>
+    <!--修改地域表-->
+    <update id="updateBycontinentId">
+        UPDATE continent
+        <set>
+            <if test="continentName!=null"> AND continentName=#{continentName}</if>
+        </set>
+        WHERE continentId=#{continentId}
+    </update>
+    <!--根据Id删除地域-->
+    <delete id="deleteBycontinentId">
+        DELETE FROM continent
+       <where>
+           <if test="continentId!=null"> AND continentId=#{continentId}</if>
+       </where>
+    </delete>
+    <insert id="insertContinent">
+         INSERT INTO continent(continentId,continentName,holidayId) values(#{continentId},#{continentName},#{holidayId})
+    </insert>
+</mapper>
