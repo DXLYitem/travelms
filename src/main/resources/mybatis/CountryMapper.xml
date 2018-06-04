@@ -13,7 +13,16 @@
         </where>
         LIMIT #{pageIndex},#{pageSize}
     </select>
+    <!--查询条数-->
     <select id="count"  resultType="Integer" >
         SELECT COUNT(*)    FROM country
     </select>
+
+    <!--根据Id删除地域-->
+    <delete id="delete">
+        DELETE FROM country
+        <where>
+            <if test="countryId!=null"> AND countryId=#{countryId}</if>
+        </where>
+    </delete>
 </mapper>

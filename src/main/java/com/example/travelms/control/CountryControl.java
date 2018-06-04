@@ -19,4 +19,9 @@ public class CountryControl {
         Pages<Country> pageCountry=countryBiz.listCountry(country, pageIndex,5);
         return pageCountry;
     }
+    @RequestMapping("delCountry")
+    @ResponseBody
+    public int remove(Integer countryId){
+        return countryBiz.remove(countryId);
+    }
 }

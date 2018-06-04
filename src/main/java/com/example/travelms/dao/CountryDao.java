@@ -8,4 +8,6 @@ public interface CountryDao {
     public List<Country> selectCountry(@Param("country")Country country, @Param("pageIndex")Integer pageIndex, @Param("pageSize") Integer pageSize);
 
     public Integer count();
+
+    int delete(@Param("countryId") Integer countryId);
 }
