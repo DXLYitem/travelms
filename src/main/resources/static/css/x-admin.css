@@ -15,13 +15,13 @@
 /* 头部 */
 .layui-layout-admin .header{
 	height: 94px;
-	border-bottom: 5px solid #5FB878;
+	border-bottom: 5px solid #A663A8;
 	background-color: #FFFFFF;
 	color: #fff;
 }
 
 .header-demo .layui-nav .layui-this:after, .header-demo .layui-nav-bar {
-	background-color: #FF0000;
+	background-color: #A663A8;
 }
 
 .layui-layout-admin .layui-side{
@@ -272,9 +272,10 @@ body .layui-layout-admin .footer-demo{height: auto; padding: 15px 0; line-height
 .site-idea .layui-field-title legend{margin: 0 20px 20px 0; padding: 0 20px; text-align: center;}
 
 
-/* 辅助 */
+ 辅助
 .site-tips{margin-bottom: 10px; padding: 15px; border-left: 5px solid #0078AD; background-color: #f2f2f2;}
 body .site-tips p{margin: 0;}
+
 
 /* 目录 */
 .site-dir{display: none;}
@@ -490,4 +491,37 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
   .site-demo-code{position: static; height: 350px;}
   /*.x-slide_left{display: none;}*/
   .layui-nav .x-index{display: none;}
+}
+.container {
+  background: #fdfdfd;
+  padding: 1rem;
+  margin: 3rem auto;
+  border-radius: 0.2rem;
+  counter-reset: pagination;
+  text-align: center;
+}
+.page-num-ul li{
+  display: inline;
+}
+.page-num-ul li a:hover {
+  color: #fdfdfd;
+  background-color: #A663A8;
+  border: solid 1px #A663A8;
+  cursor: pointer;
+}
+.page-num-ul li.active a {
+  color: #fdfdfd;
+  background-color: #A663A8;
+  border: solid 1px #A663A8;
+}
+.page-num-ul li a {
+  border: solid 1px #A663A8;
+  border-radius: 0.2rem;
+  color: #A663A8;
+  text-decoration: none;
+  /*text-transform: uppercase;*/
+  display: inline-block;
+  text-align: center;
+  padding:4px 9px;
+  font-size:14px;
 }

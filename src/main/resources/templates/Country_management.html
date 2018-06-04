@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>
@@ -28,6 +28,7 @@
               <a><cite>首页</cite></a>
               <a><cite>旅游项目</cite></a>
             </span>
+    <!-- <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>-->
 </div>
 <form class="layui-form x-center" action="" style="width:500px">
     <div class="layui-form-pane" style="margin-top: 15px;">
@@ -42,41 +43,26 @@
     </div>
 </form>
 <div class="x-body">
-    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
-      <span class="x-right" style="line-height:20px">
-        <button class="layui-btn" onclick="Warning_management_add('添加旅游项目','insertItem','600','500')"><i class="layui-icon">&#xe608;</i>添加</button>
-     </span></xblock>
+    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px"><button class="layui-btn" onclick="Warning_management_add('添加类型','Warning_management_add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
     <div id="div">
     <table class="layui-table">
         <thead>
         <tr>
             <th width="50"><input type="checkbox"  name="a" />全选</th>
             <th>编号</th>
-            <th>标题</th>
-            <th>游玩时间</th>
-            <th>出发城市</th>
-            <th>出发时间</th>
-            <th>地域</th>
-            <th>地点</th>
-            <th>酒店</th>
+            <th>地区名称</th>
+            <th>地域名称</th>
             <th>操作</th>
         </tr>
         </thead>
-
-
         <tbody id="x-link">
-        <tr v-for="info in page.list">
+        <tr v-for="city in page.list">
             <td width="50"><input type="checkbox"  name="checkbox" /></td>
-            <td class="itemid">{{info.itemId}}</td>
-            <td>{{info.title}}</td>
-            <td>{{info.playTime}}</td>
-            <td>{{info.city}}</td>
-            <td>{{info.startTime}}</td>
-            <td>{{info.continentName}}</td>
-            <td>{{info.countryName}}</td>
-            <td>{{info.brandName}}</td>
+            <td class="countryId">{{city.countryId}}</td>
+            <td>{{city.countryName}}</td>
+            <td>{{city.continentName}}</td>
             <td class="td-manage">
-                <a title="修改" href="javascript:;" onclick="data_management_look('查看','updateItem','4','','510')"
+                <a title="处理" href="javascript:;" onclick="data_management_look('查看','data_management_look.html','4','','510')"
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
@@ -88,6 +74,7 @@
         </tr>
         </tbody>
     </table>
+
         <div id="page" class="container" >
             <ul class="page-num-ul clearfix">
                 <li v-if="page.pageIndex>1">
@@ -98,10 +85,9 @@
                     <a id="xia" v-on:click="xia">下一页</a>
                     <a id="mo2" v-on:click="mo">末页</a>
                 </li>
-            <li><a href="javascript:void(0)"><span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span> 页</a></li>
+                <li><a href="javascript:void(0)"><span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span> 页</a></li>
                 <li><a href="javascript:void(0)">共{{page.totalCount}}条</a></li>
             </ul>
-        </div>
     </div>
 </div>
 </div>
@@ -110,13 +96,13 @@
     layui.use(['element','laypage','layer','form'], function(){
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
-       // laypage = layui.laypage;//分页
+        /*laypage = layui.laypage;//分页*/
         layer = layui.layer;//弹出层
         form = layui.form();//弹出层
 
 
-       /* //以上模块根据需要引入
-        laypage({
+        //以上模块根据需要引入
+       /* laypage({
             cont: 'page'
             ,pages: 100
             ,first: 1
@@ -134,33 +120,10 @@
 
     //批量删除提交
     function delAll () {
-        var checkArry = document.getElementsByName("checkbox");
-        for (var i = 0; i < checkArry.length; i++) {
-            if(checkArry[i].checked == true){
-                //选中的操作
-                $("#x-link").find("tr").each(function(){
-                    var tdArr = $(this).children().text();
-
-                    var t1 =$(this).find('td').eq(1).text();
-                    alert(t1);
-
-
-
-                });
-               layer.confirm('确认要删除吗？',function(index){
-                    //捉到所有被选中的，发异步进行删除
-                    layer.msg('删除成功', {icon: 1});
-                });
-
-                return;
-            }
-            /*if(checkArry[i].checked == false){
-                //未选中的操作
-                alert(22)
-                return;
-            }*/
-        }
-
+        layer.confirm('确认要删除吗？',function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+        });
     }
 
     /*用户-添加*/
@@ -183,11 +146,11 @@
     }
 
     $(document).ready(function(){
-          var index;
-        var vuee=new Vue({
+        var index;
+        var e=new Vue({
             el:"#div",
             data:{
-                info:[],
+                city:[],
                 page:{}
             },
             methods:{
@@ -209,33 +172,30 @@
                 }
             }
         })
-
         //分页
         function  fenye() {
             $.ajax({
-                url:"item",
+                url:"country",
                 data:{pageIndex:index},
                 type:"post",
                 dataType:"json",
                 success:function(data){
-                    vuee.page=data;
+                    e.page=data;
                 }
 
             })
         }
-
         $.ajax({
-            url:"item",
+            url:"country",
             data:{pageIndex:1},
             type:"post",
             dataType:"json",
-            success:function(data){;
-                vuee.page=data;
+            success:function(data){
+                e.page=data;
             }
+
         })
-
-
-    });
+    })
 </script>
 <!--<script>
     var _hmt = _hmt || [];

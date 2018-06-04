@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.travelms.dao.CountryDao">
+    <resultMap id="continentMap" type="Country">
+        <result column="continentName" property="continentName"></result>
+    </resultMap>
+    <select id="selectCountry"  resultMap="continentMap">
+        SELECT country.*,continent.continentName FROM country
+        INNER JOIN continent ON continent.continentId=country.continentId
+        <where>
+            <if test="country.countryId != null"> and countryId=#{country.countryId}</if>
+        </where>
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+    <select id="count"  resultType="Integer" >
+        SELECT COUNT(*)    FROM country
+    </select>
+</mapper>
