@@ -30,4 +30,8 @@ public interface ContinentDao {
      *根据Id删除地域
      */
     int deleteBycontinentId(@Param("continentId") Integer continentId);
+    /**
+     * 添加地域
+     */
+    int insertContinent(Continent continent);
 }

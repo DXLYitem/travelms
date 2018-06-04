@@ -31,6 +31,6 @@
        </where>
     </delete>
     <insert id="insertContinent">
-         INSERT INTO continent(continentId,continentName,holidayId) values(#{continentId},#{continentName},#{holidayId})
+         INSERT INTO continent(continentName,holidayId) values(#{continentName},#{holidayId})
     </insert>
 </mapper>

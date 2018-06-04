@@ -11,4 +11,5 @@ public interface ContinentBiz {
   Pages<Continent> listContinent(Continent continent, Integer pageIndex, Integer pageSize);
   int updateBycontId(Continent continent);
   int delBycontId(Integer continentId);
+  int addContinent(Continent continent);
 }

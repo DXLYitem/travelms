@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
     
     <head>
         <meta charset="utf-8">
@@ -13,6 +13,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
         <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../static/js/vue.js"></script>
     </head>
     
     <body>
@@ -40,14 +42,9 @@
                 <div class="layui-form-item">
                     <p v-on:onclick="x_admin_close" ><input type="submit" class="layui-btn" value="确定"/></p>
                 </div>
-                <!--<div class="layui-form-item">
-                    <button class="layui-btn">
-                        返回
-                    </button>
-                </div>-->
             </form>
-
         </div>
+
         <script src="../static/lib/layui/layui.js" charset="utf-8">
         </script>
         <script src="../static/js/x-layui.js" charset="utf-8">
