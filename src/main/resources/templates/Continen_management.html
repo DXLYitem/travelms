@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,7 +36,10 @@
     </div>
 </form>
 <div class="x-body">
-    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px"><button class="layui-btn" onclick="Warning_management_add('添加类型','Warning_management_add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
+    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
+        <span class="x-right" style="line-height:20px">
+        <button class="layui-btn" onclick="Warning_management_add('添加地域','insertContinen','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span>
+    </xblock>
     <div id="div">
     <table class="layui-table">
 
@@ -55,7 +57,7 @@
             <td  class="continentId">{{continent.continentId}}</td>
             <td>{{continent.continentName}}</td>
             <td class="td-manage">
-                <a title="修改" href="javascript:;" onclick="data_management_look('修改','updateContinen','4','','510')"
+                <a title="修改" href="javascript:;" v-on:click="updaOpen(continent.continentId,continent.continentName)"
                    class="ml-5" style="text-decoration:none">
                     <i class="layui-icon" id="cid">&#xe642;</i>
                 </a>
@@ -107,50 +109,70 @@
    $(document).ready(function(){
        var index;
        var vuee=new Vue({
-           el:"#div",
-           data:{
-               continen:[],
-               page:{}
+           el: "#div",
+           data: {
+               continen: [],
+               page: {}
            },
-           methods:{
-               xia:function () {
-                   index=parseInt($("#dangqian").text())+1;
+           methods: {
+               xia: function () {
+                   index = parseInt($("#dangqian").text()) + 1;
                    fenye();
                },
-               shang:function () {
-                   index=parseInt($("#dangqian").text())-1;
+               shang: function () {
+                   index = parseInt($("#dangqian").text()) - 1;
                    fenye();
                },
-               shou:function () {
-                   index=1;
+               shou: function () {
+                   index = 1;
                    fenye();
                },
-               mo:function () {
-                   index=parseInt($("#mo").text());
+               mo: function () {
+                   index = parseInt($("#mo").text());
                    fenye();
                },
                //删除地域
-               del:function (index,event) {
-                   layer.confirm('确认要删除吗？',function(i){
+               del: function (index, event) {
+                   layer.confirm('确认要删除吗？', function () {
+                    /*   $(event.target).parent("tr").remove();*/
+                    /*   layer.msg('已删除!', {icon: 1, time: 1000});*/
                        $.ajax({
                            url: "deleteContinen",
                            data: {"continentId": index},
                            type: "post",
                            dataType: "json",
                            success: function (data) {
+                               /*  alert($(event.currentTarget).text());*/
 
+                               layer.msg('已删除!', {icon: 1, time: 1000});
 
-                             /*  alert($(event.currentTarget).text());
-                               $(event.currentTarget).hide();*/
-                               layer.msg('已删除!',{icon:1,time:1000});
-
+                               /*
+                                          alert($(".x-body").find('#x-link tr').children().text())
+           */
+                             /*  var tr=$(".x-body").find('#x-link tr').children();*/
                            }
                        })
-                   });
+                   })
+               },
+               //打开修改页面传值
+               updaOpen: function (continentId, continentName) {
+                   $.ajax({
+                       url: "updateContinen",
+                       data: {
+                           "continentId": continentId,
+                           "continentName": continentName
+                       },
+                       type: "post",
+                       dataType: "json",
+                       success: function (data) {
+                           alert(continentId)
+                           alert(continentName)
+                       }
+                   })
+
                }
            }
        })
-
        //分页
        function  fenye() {
            $.ajax({

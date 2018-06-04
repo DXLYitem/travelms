@@ -15,7 +15,7 @@ import java.util.List;
  * 地域表Impl
  */
 @Service
-public class ContinentBizImpl implements ContinentBiz {
+public class ContinentBizImpl implements ContinentBiz{
     @Resource
     private ContinentDao continentDao;
     @Resource
@@ -42,12 +42,19 @@ public class ContinentBizImpl implements ContinentBiz {
     @Override
     public int delBycontId(Integer continentId) {
         String conKey="conKey";
-
         if(redisUtil.exists(conKey)) {
             redisUtil.remove(conKey);
         }
-           int num=continentDao.deleteBycontinentId(continentId);
-            return num;
+        return continentDao.deleteBycontinentId(continentId);
         }
+
+    @Override
+    public int addContinent(Continent continent) {
+        String conKey="conKey";
+        if(redisUtil.exists(conKey)) {
+            redisUtil.remove(conKey);
+        }
+        return continentDao.insertContinent(continent);
+    }
 
 }
