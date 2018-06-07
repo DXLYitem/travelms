@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.travelms.dao.OrderDao">
+  <!--  <resultMap id="order" type="Order">
+        <id column="orderid" property="orderId"/>
+        <result column="ordernum" property="orderNum"/>
+        <result column="ordertime" property="orderTime"/>
+        <result column="price" property="price"/>
+        <result column="destination" property="destination"/>
+        <result column="status" property="status"/>
+        <result column="city" property="city"/>
+        <result column="itemname" property="itemname"/>
+        <result column="roomnum" property="roomnum"/>
+        <association property="customize" javaType="Customize">
+            <id column="customizeid" property="customizeId"/>
+            <result column="destination" property="destination"/>
+            <result column="tripsNum" property="tripsNum"/>
+            <result column="contact" property="contact"/>
+            <result column="phone" property="phone"/>
+            <result column="email" property="email"/>
+            <result column="startDate" property="startDate"/>
+            <result column="endDate" property="endDate"/>
+            <result column="flightTime" property="flightTime"/>
+            <result column="flightSpace" property="flightSpace"/>
+            <result column="flightCompany" property="flightCompany"/>
+            <result column="hotel" property="hotel"/>
+            <result column="roomType" property="roomType"/>
+            <result column="rhythm" property="rhythm"/>
+            <result column="tourProject" property="tourProject"/>
+            <result column="meal" property="meal"/>
+            <result column="other" property="other"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="scores" type="Order">
+        <id column="orderid" property="orderId"/>
+        <result column="ordernum" property="orderNum"/>
+        <result column="ordertime" property="orderTime"/>
+        <result column="price" property="price"/>
+        <result column="itemname" property="itemname"/>
+        <result column="city" property="city"/>
+        <result column="roomnum" property="roomnum"/>
+        <association property="user" javaType="Associator">
+            <result property="scores" column="scores"/>
+        </association>
+    </resultMap>
+
+    <select id="selOrder" resultMap="order">
+        SELECT o.*,c.* FROM `order` o inner join customize c on o.customizeid=c.customizeid
+        <where>
+            <if test="phone!=null and phone!=''">and c.phone=#{phone}</if>
+            <if test="customizeid !=null">and c.customizeid=#{customizeid}</if>
+        </where>
+    </select>
+
+    <select id="selscores" resultMap="scores" parameterType="String">
+        SELECT o.orderTime,o.orderNum,o.price,u.scores FROM `order` o
+        INNER JOIN customize c ON o.customizeid=c.customizeid
+        INNER JOIN `user` u ON u.phone=c.phone
+        WHERE c.phone=#{phone}
+    </select>-->
+
+<select id="selectOrder" resultType="Order">
+    SELECT * FROM `order`
+     <where>
+       <if test="order.orderId!=null">and orderId=#{order.orderId}</if>
+     </where>
+        LIMIT #{pageIndex},#{pageSize}
+</select>
+  <select id="orderCount" resultType="Integer">
+     SELECT COUNT(*) FROM  `order`
+  </select>
+</mapper>

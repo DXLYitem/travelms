@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.travelms.dao.UserDao">
+    <!--会员管理查询-->
+    <select id="selectUser" resultType="User">
+        SELECT * FROM USER
+        <where>
+            <if test="user.userId!=null">and userId=#{user.userId}</if>
+        </where>
+         LIMIT #{pageIndex},#{pageSize}
+    </select>
+    <!--会员总条数-->
+    <select id="userCount" resultType="Integer">
+        SELECT COUNT(*) FROM  USER
+    </select>
+</mapper>

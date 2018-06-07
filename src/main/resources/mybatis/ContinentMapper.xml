@@ -19,9 +19,10 @@
     <update id="updateBycontinentId">
         UPDATE continent
         <set>
-            <if test="continentName!=null"> AND continentName=#{continentName}</if>
+            <if test="continent.continentName!=null">continentName=#{continent.continentName}</if>
+            <if test="continent.holidayId!=null">holidayId=#{continent.holidayId}</if>
         </set>
-        WHERE continentId=#{continentId}
+        WHERE continentId=#{continent.continentId}
     </update>
     <!--根据Id删除地域-->
     <delete id="deleteBycontinentId">

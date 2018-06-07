@@ -6,11 +6,9 @@ import com.example.travelms.util.Pages;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.ui.Model;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * 地域列表控制层
@@ -23,25 +21,28 @@ public class ContinentControl {
     @RequestMapping("continen")
     @ResponseBody
     public Pages<Continent> continen(Continent con, Integer pageIndex, Integer pageSize){
-
-        Pages<Continent> pageContinent=continentBiz.listContinent(con, pageIndex,5);
+        Pages<Continent> pageContinent=continentBiz.listContinent(con, pageIndex,pageSize);
 
      return  pageContinent;
     }
+    //打开修改页面
     @RequestMapping("updateContinen")
-    public String updateContin(Integer continentId,String continentName){
-
-        Integer a=continentId;
-        String c=continentName;
-
+    public String updateContin(Integer continentId,String continentName,Model model){
+        model.addAttribute("continentId",continentId);
+        model.addAttribute("continentName",continentName);
         return  "continen_look";
     }
 
     @RequestMapping("updateContinen2")
-    public String updateContin2(){
-        System.out.println(13456);
-        return  "redirect:continen";
+    @ResponseBody
+    public int updateContin2(Integer continentId,String continentName){
+        Continent continent=new Continent();
+        continent.setContinentId(continentId);
+        continent.setContinentName(continentName);
+       /* continent.setHolidayId(2);*/
+        return  continentBiz.updateBycontId(continent);
     }
+    //删除地域
     @RequestMapping("deleteContinen")
     @ResponseBody
     public int del(Integer continentId){
@@ -62,15 +63,6 @@ public class ContinentControl {
         continent.setHolidayId(holidayId);
         Integer num=continentBiz.addContinent(continent);
 
-       /* String com=null;
-        if(num>0){
-            com="添加成功!";
-            System.out.println(com);
-        }else {
-            com="添加失败!";
-            System.out.println(com);
-        }
-        response.getWriter().print(com);*/
          return num;
     }
 }

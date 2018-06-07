@@ -25,6 +25,9 @@ public class ContinentBizImpl implements ContinentBiz{
         if(pageIndex==null||pageIndex==0){
             pageIndex=1;
         }
+        if(pageSize==null || pageSize==0){
+            pageSize=5;
+        }
         Pages<Continent>page=new Pages<Continent>();
        page.setPageIndex(pageIndex);
        page.setPageSize(pageSize);
@@ -35,13 +38,16 @@ public class ContinentBizImpl implements ContinentBiz{
 
     @Override
     public int updateBycontId(Continent continent) {
-
+        String conKey="conKey"+continent.getContinentId();
+        if(redisUtil.exists(conKey)) {
+            redisUtil.remove(conKey);
+        }
         return continentDao.updateBycontinentId(continent);
     }
 
     @Override
     public int delBycontId(Integer continentId) {
-        String conKey="conKey";
+        String conKey="conKey"+continentId;
         if(redisUtil.exists(conKey)) {
             redisUtil.remove(conKey);
         }
@@ -50,11 +56,12 @@ public class ContinentBizImpl implements ContinentBiz{
 
     @Override
     public int addContinent(Continent continent) {
-        String conKey="conKey";
+        String conKey="conKey"+continent.getContinentId();
         if(redisUtil.exists(conKey)) {
             redisUtil.remove(conKey);
         }
         return continentDao.insertContinent(continent);
+
     }
 
 }

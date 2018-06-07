@@ -29,7 +29,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">地域名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="continenName" class="layui-input">
+                        <input type="text" name="continenName" class="layui-input" maxlength="5">
                         <span class="con" style="color: red;font-size:10px"></span>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     var holidayId=$('[name="holidayId"]').val();
                     if(continenName==""||continenName==null){
                       $('.con').text('*请输入地域名称！');
-                      return;
+                      return false;
                     }
                     $.ajax({
                         url : "insertContinen2",

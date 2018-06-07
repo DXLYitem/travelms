@@ -57,7 +57,7 @@
                                     </dd>
                                 </dd>
                                 <dd class="">
-                                    <dd class="continen">
+                                    <dd class="item">
                                         <a href="javascript:;" _href_="Continen_management">
                                             <cite>地域管理</cite>
                                         </a>
@@ -81,14 +81,14 @@
                         </li>
 
                         <!--用户管理-->
-                        <li class="layui-nav-item">
-                            <a class="javascript:;" href="javascript:;" _href="User_management.html">
+                        <li class="layui-nav-item userName">
+                            <a class="javascript:;" href="javascript:;" _href="UserName_management">
                                 <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>会员管理</cite>
                             </a>
                         </li>
                         <!--交易管理-->
-                       <li class="layui-nav-item">
-                            <a class="javascript:;" href="javascript:;" _href="Oder_management.html">
+                       <li class="layui-nav-item order">
+                            <a class="javascript:;" href="javascript:;" _href="Order">
                                 <i class="layui-icon" style="top: 3px;">&#xe613;</i><cite>订单管理</cite>
                             </a>
                         </li>
@@ -153,8 +153,13 @@
                     $(".layui-show").load(html);
                 });
 
-                $(".continen").on("click",function () {
-                    var html=$(this).find("a").attr("_href_");
+                $(".userName").on("click",function () {
+                    var html=$(this).find("a").attr("_href");
+                    $(".layui-show").load(html);
+                });
+
+                $(".order").on("click",function () {
+                    var html=$(this).find("a").attr("_href");
                     $(".layui-show").load(html);
                 });
 

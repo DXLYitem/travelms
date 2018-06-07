@@ -36,35 +36,32 @@
     </div>
 </form>
 <div class="x-body">
-    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
-        <span class="x-right" style="line-height:20px">
-        <button class="layui-btn" onclick="Warning_management_add('添加地域','insertContinen','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span>
-    </xblock>
     <div id="div">
     <table class="layui-table">
 
         <thead>
         <tr>
-            <th>请选择</th>
-            <th>编号</th>
-            <th>地域名称</th>
-            <th>操作</th>
+            <th>用户编号</th>
+            <th>订单号</th>
+            <th>下单时间</th>
+            <th>订单金额</th>
+            <th>目的地</th>
+            <th>订单状态</th>
         </tr>
         </thead>
         <tbody id="x-link">
         <tr v-for="continent in page.list">
-            <td width="50"><input type="checkbox"  name="checkbox" /></td>
-            <td  class="continentId">{{continent.continentId}}</td>
-            <td>{{continent.continentName}}</td>
-            <td class="td-manage">
-                <a title="修改" href="javascript:;" onclick="update(this)" class="ml-5" style="text-decoration:none">
-                    <i class="layui-icon" id="cid">&#xe642;</i>
-                </a>
-                <a id="del" title="删除" href="javascript:;" v-on:click="del(continent.continentId,event)"
-                   style="text-decoration:none">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
+            <td  class="continentId">{{continent.orderId}}</td>
+            <td>{{continent.orderNum}}</td>
+            <td>{{continent.date}}</td>
+            <td>{{continent.price}}</td>
+            <td>{{continent.destination}}</td>
+            <td>{{continent.status}}</td>
+         <!--   <td>{{continent.customizeid}}</td>
+            <td>{{continent.city}}</td>
+            <td>{{continent.itemid}}</td>
+            <td>{{continent.itemname}}</td>
+            <td>{{continent.roomnum}}</td>-->
         </tr>
         </tbody>
     </table>
@@ -87,11 +84,6 @@
 </div>
 </div>
 <script>
-    function update(e) {
-        var id=$(e).parent().parent().find("td").eq(1).text();
-        var name=$(e).parent().parent().find("td").eq(2).text();
-        data_management_look('查看','updateContinen?continentId='+id+'&'+'continentName='+name,'4','','510');
-        }
    layui.use(['element','laypage','layer','form'], function(){
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
@@ -134,30 +126,13 @@
                mo: function () {
                    index = parseInt($("#mo").text());
                    fenye();
-               },
-               //删除地域
-               del: function (index, event) {
-                   layer.confirm('确认要删除吗？', function () {
-                       $.ajax({
-                           url: "deleteContinen",
-                           data: {"continentId": index},
-                           type: "post",
-                           dataType: "json",
-                           success: function (data) {
-                               layer.msg('已删除!', {icon: 1, time: 1000});
-                               //删除之后调用分页刷新当前页面
-                               fenye();
-
-                           }
-                       })
-                   })
                }
            }
        })
        //分页
        function fenye() {
            $.ajax({
-               url:"continen",
+               url:"ordercontrol",
                data:{pageIndex:index},
                type:"post",
                dataType:"json",
@@ -168,7 +143,7 @@
            })
        }
        $.ajax({
-           url:"continen",
+           url:"ordercontrol",
            data:{pageIndex:1},
            type:"post",
            dataType:"json",

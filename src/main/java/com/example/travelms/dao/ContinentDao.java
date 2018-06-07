@@ -19,13 +19,13 @@ public interface ContinentDao {
      * 地域表总条数
      * @return
      */
-    Integer continentCount();
+    int continentCount();
 
     /**
      * 修改地域表
      * @return
      */
-    int updateBycontinentId(Continent continent);
+    int updateBycontinentId(@Param("continent") Continent continent);
     /**
      *根据Id删除地域
      */

@@ -44,6 +44,7 @@ public class LoginControl {
     public String data_management(){
         return "Data_management";
     }
+    //地域管理页面
     @RequestMapping("Continen_management")
     public String home_add(){
         return "Continen_management";
@@ -52,9 +53,15 @@ public class LoginControl {
     public String country_management(){
         return "Country_management";
     }
-    @RequestMapping("Oder_management")
-    public String oder_management(){
-        return "Oder_management";
+    //订单管理页面
+    @RequestMapping("Order")
+    public String oder(){
+        return "Order";
+    }
+    //会员管理页面
+    @RequestMapping("UserName_management")
+    public String UserName_management(){
+        return "UserName_management";
     }
 
 }
