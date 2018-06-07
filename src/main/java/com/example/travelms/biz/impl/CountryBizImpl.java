@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.travelms.util.RedisUtil;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class CountryBizImpl implements CountryBiz{
     @Resource
@@ -36,5 +38,19 @@ public class CountryBizImpl implements CountryBiz{
         }
         int num=countryDao.delete(countryId);
         return num;
+    }
+
+    @Override
+    public List<Country> listCountry2(Integer continentId) {
+        String couKey="couKey"+continentId;
+        /*redisUtil.remove(couKey);*/
+        if(redisUtil.exists(couKey)){
+            Object o = redisUtil.lRange(couKey, 0, redisUtil.length(couKey)).get(0);
+            return (List<Country>) o;
+        }else{
+            List<Country> list=countryDao.selectCountry2(continentId);
+            redisUtil.lPush(couKey,list);
+            return list;
+        }
     }
 }

@@ -25,7 +25,7 @@ public class CountryServiceImpl implements CountryService {
             Object o = redisUtil.lRange(couKey, 0, redisUtil.length(couKey)).get(0);
             return (List<Country>) o;
         }else{
-             List<Country> list=countryDao.selectCountry(continentId);
+             List<Country> list=countryDao.selectCountry2(continentId);
              redisUtil.lPush(couKey,list);
              return list;
         }

@@ -57,7 +57,7 @@ public class ContinentBizImpl implements ContinentBiz{
         return continentDao.insertContinent(continent);
     }
 
-}
+
 
     @Override
     public List<Continent> listContinent() {

@@ -10,4 +10,8 @@ public interface CountryDao {
     public Integer count();
 
     int delete(@Param("countryId") Integer countryId);
+
+
+
+    public List<Country> selectCountry2(@Param("continentId") Integer continentId);
 }
