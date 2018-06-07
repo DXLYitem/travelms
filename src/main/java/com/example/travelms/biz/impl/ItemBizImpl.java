@@ -4,7 +4,7 @@ import com.example.travelms.biz.ItemBiz;
 import com.example.travelms.dao.ItemDao;
 import com.example.travelms.entity.Item;
 import com.example.travelms.util.Pages;
-import org.springframework.data.annotation.Reference;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +14,25 @@ import java.util.List;
 public class ItemBizImpl implements ItemBiz {
     @Resource
     private ItemDao itemDao;
+
+    @Override
+    public Boolean deleteItem(Integer[] itemId) {
+        if(itemDao.deleteItem(itemId)>0){
+            return  true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean insertItem(Item item) {
+        if(itemDao.insertItem(item)>0){
+            return  true;
+        }else{
+            return false;
+        }
+
+    }
 
     @Override
     public Pages<Item> listItem(Item item, Integer pageIndex, Integer pageSize) {

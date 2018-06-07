@@ -15,6 +15,7 @@
         LEFT JOIN  country cou  ON ite.countryId=cou.countryId
         LEFT JOIN  continent con ON cou.continentId=con.continentId
         LEFT JOIN brand b ON ite.brandid=b.brandid
+
         <where>
           <if test="item.title!=null and item.title!=''"> or ite.title  LIKE CONCAT ('%',#{item.title},'%')</if>
             <if test="item.brandName!=null and item.brandName!=''">or b.brandName LIKE CONCAT ('%',#{item.brandName},'%')</if>
@@ -42,8 +43,18 @@
 
 
     <insert id="insertItem" parameterType="Item">
-           INSERT INTO item(title,EXPLAIN,playTime,price,countryId,hobbyId,travelId,styleId,trafficId,picpath,startTime)
-            VALUE(?,?,?,?,?,?,?,?,?,?,NOW())
+           INSERT INTO item(title,`EXPLAIN`,playTime,price,countryId,brandId,travelId,styleId,trafficId,picpath,startTime)
+            VALUE(#{item.title},#{item.explain},#{item.playTime},#{item.price},#{item.countryId},#{item.brandId},#{item.travelId},#{item.styleId},#{item.trafficId},#{item.picPath},NOW())
     </insert>
 
+
+    <delete id="deleteItem" parameterType="Integer[]">
+        delete from item
+        <where>
+            itemId
+            <foreach  collection="array" item="itemId" open="in (" close=")" separator=",">
+                #{itemId}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

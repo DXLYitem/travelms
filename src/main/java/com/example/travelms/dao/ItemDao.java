@@ -11,5 +11,7 @@ public interface ItemDao {
 
     public Integer count(@Param("item")Item item);
 
-    public Integer insertitem(@Param("item")Item item);
+    public Integer insertItem(@Param("item")Item item);
+
+    public Integer deleteItem(Integer [] itemId);
 }
