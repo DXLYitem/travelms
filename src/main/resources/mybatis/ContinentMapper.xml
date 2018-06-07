@@ -27,7 +27,7 @@
     <delete id="deleteBycontinentId">
        delete from continent
        <where>
-           <if test="continentId!=null"> AND continentId=#{continentId</if>
+           <if test="continentId!=null"> AND continentId=#{continentId}</if>
        </where>
     </delete>
     <insert id="insertContinent">

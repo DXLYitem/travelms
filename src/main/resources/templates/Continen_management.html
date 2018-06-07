@@ -133,8 +133,6 @@
                //删除地域
                del: function (index, event) {
                    layer.confirm('确认要删除吗？', function () {
-                    /*   $(event.target).parent("tr").remove();*/
-                    /*   layer.msg('已删除!', {icon: 1, time: 1000});*/
                        $.ajax({
                            url: "deleteContinen",
                            data: {"continentId": index},

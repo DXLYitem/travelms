@@ -69,7 +69,7 @@
                 </a>
                 <!--<a id="del" title="删除" href="javascript:;" v-on:click="data_management_del(this,'1')"
                    style="text-decoration:none">-->
-                <a id="del" title="删除" href="javascript:;" v-on:click="del(country.countryId,$event)"
+                <a id="del" title="删除" href="javascript:;" v-on:click="del(city.countryId,$event)"
                    style="text-decoration:none">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
@@ -181,8 +181,7 @@
                             type: "post",
                             dataType: "json",
                             success: function (data) {
-                                /*  alert($(event.currentTarget).text());
-                                  $(event.currentTarget).hide();*/
+                                fenye();
                                 layer.msg('已删除!',{icon:1,time:1000});
                             }
                         })
