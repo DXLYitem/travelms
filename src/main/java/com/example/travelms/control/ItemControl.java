@@ -50,7 +50,7 @@ public class ItemControl {
     private  ContinentBiz ContinentBiz;
 
     @Resource
-    private CountryService countryService;
+    private CountryBiz countryBiz;
 
 
     @RequestMapping("item")
@@ -142,7 +142,7 @@ public class ItemControl {
     @RequestMapping("selectCountry")
     @ResponseBody
     public List<Country> list(Integer continentId){
-        List<Country> list=  countryService.listCountry(continentId);
+        List<Country> list=  countryBiz.listCountry(continentId);
         return list;
     }
 

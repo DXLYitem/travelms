@@ -17,12 +17,6 @@
     <script type="text/javascript" src="../static/js/vue.js"></script>
 </head>
 <body>
-
-<!--
-<script src="../static/lib/layui/layui.js" charset="utf-8"></script>
-<script src="../static/js/x-layui.js" charset="utf-8"></script>
--->
-
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
@@ -34,10 +28,10 @@
     <div class="layui-form-pane" style="margin-top: 15px;">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="width:400px">
-                <input type="text" name="username"  placeholder="搜索内容" autocomplete="off" class="layui-input" id="sou">
+                <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input" id="sou">
             </div>
-            <div class="layui-input-inline" style="width:80px" >
-                <a class="layui-btn"  lay-submit="" lay-filter="sreach" v-on:click="ss"><i class="layui-icon">&#xe615;</i></a>
+            <div class="layui-input-inline" style="width:40px;">
+                <a style="height: 37px;line-height: 37px" class="layui-btn"  lay-submit="" lay-filter="sreach" v-on:click="ss"><i class="layui-icon">&#xe615;</i></a>
             </div>
         </div>
     </div>
@@ -63,8 +57,6 @@
             <th>操作</th>
         </tr>
         </thead>
-
-
         <tbody id="x-link">
         <tr v-for="info in page.list">
             <td width="50" >
@@ -90,20 +82,19 @@
         </tr>
         </tbody>
     </table>
-
-    <div id="page">
-        <ul class="page-num-ul clearfix" id="ul">
-            <li>共条<span>{{page.totalCount}}</span>记录&nbsp;&nbsp;<span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span> 页</li>
-            <div v-if="page.pageIndex>1">
+    <div id="page" class="container" >
+        <ul class="page-num-ul clearfix">
+            <li v-if="page.pageIndex>1">
                 <a id="shou" v-on:click="shou">首页</a>
                 <a id="shang" v-on:click="shang">上一页</a>
-            </div>
-            <div v-if="page.pageIndex<page.totalPage">
+            </li>
+            <li v-if="page.pageIndex<page.totalPage">
                 <a id="xia" v-on:click="xia">下一页</a>
-                <a id="mo2" v-on:click="mo">最后一页</a>
-            </div>
+                <a id="mo2" v-on:click="mo">末页</a>
+            </li>
+            <li><a href="javascript:void(0)"><span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span> 页</a></li>
+            <li><a href="javascript:void(0)">共{{page.totalCount}}条</a></li>
         </ul>
-
     </div>
 </div>
 </div>

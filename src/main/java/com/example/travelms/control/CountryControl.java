@@ -15,8 +15,8 @@ public class CountryControl {
 
     @RequestMapping("country")
     @ResponseBody
-    public Pages<Country> listCountry(Country country,Integer pageIndex,Integer pageSize){
-        Pages<Country> pageCountry=countryBiz.listCountry(country, pageIndex,5);
+    public Pages<Country> pageCountry(Country country,Integer pageIndex,Integer pageSize){
+        Pages<Country> pageCountry=countryBiz.listPageCountry(country, pageIndex,5);
         return pageCountry;
     }
     @RequestMapping("delCountry")

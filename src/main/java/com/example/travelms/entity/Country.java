@@ -14,6 +14,8 @@ public class Country implements Serializable {
     //地域ID
     private Integer continentId;
 
+    private String continentName;
+
     public Integer getCountryId() {
         return countryId;
     }
@@ -36,6 +38,14 @@ public class Country implements Serializable {
 
     public void setContinentId(Integer continentId) {
         this.continentId = continentId;
+    }
+
+    public String getContinentName() {
+        return continentName;
+    }
+
+    public void setContinentName(String continentName) {
+        this.continentName = continentName;
     }
 
     @Override
