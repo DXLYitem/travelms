@@ -52,9 +52,9 @@ public class LoginControl {
     public String country_management(){
         return "Country_management";
     }
-    @RequestMapping("Oder_management")
-    public String oder_management(){
-        return "Oder_management";
+    @RequestMapping("Hotel_management")
+    public String hotel_management(){
+        return "Hotel_management";
     }
 
 }

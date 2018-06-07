@@ -10,4 +10,6 @@ public interface CountryDao {
     public Integer count();
 
     int delete(@Param("countryId") Integer countryId);
+
+    int insert(Country country);
 }

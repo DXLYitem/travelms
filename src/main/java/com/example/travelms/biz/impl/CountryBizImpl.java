@@ -37,4 +37,13 @@ public class CountryBizImpl implements CountryBiz{
         int num=countryDao.delete(countryId);
         return num;
     }
+
+    @Override
+    public int add(Country country) {
+        String couKey="couKey";
+        if(redisUtil.exists(couKey)) {
+            redisUtil.remove(couKey);
+        }
+        return countryDao.insert(country);
+    }
 }

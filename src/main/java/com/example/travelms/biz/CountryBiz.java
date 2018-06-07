@@ -9,5 +9,7 @@ public interface CountryBiz {
     public Pages<Country> listCountry(Country country, Integer pageIndex, Integer pageSize);
 
     int remove(Integer countryId);
+
+    int add(Country country);
 }
 
