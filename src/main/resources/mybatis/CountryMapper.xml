@@ -5,7 +5,7 @@
     <resultMap id="continentMap" type="Country">
         <result column="continentName" property="continentName"></result>
     </resultMap>
-    <select id="selectCountry"  resultMap="continentMap">
+    <select id="selectPageByCountry"  resultMap="continentMap">
         SELECT country.*,continent.continentName FROM country
         INNER JOIN continent ON continent.continentId=country.continentId
         <where>
@@ -25,4 +25,11 @@
             <if test="countryId!=null"> AND countryId=#{countryId}</if>
         </where>
     </delete>
+
+    <select id="selectCountry"  resultType="Country"  parameterType="int">
+        SELECT * FROM country
+        <where>
+            <if test="continentId != null"> and continentId=#{continentId}</if>
+        </where>
+    </select>
 </mapper>

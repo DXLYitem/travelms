@@ -57,4 +57,19 @@ public class ContinentBizImpl implements ContinentBiz{
         return continentDao.insertContinent(continent);
     }
 
+
+
+    @Override
+    public List<Continent> listContinent() {
+        String conKey = "conKey";
+
+        if (redisUtil.exists(conKey)) {
+            Object o = redisUtil.lRange(conKey, 0, redisUtil.length(conKey)).get(0);
+            return (List<Continent>) o;
+        } else {
+            List<Continent> list = continentDao.selectContinentTwo();
+            redisUtil.lPush(conKey, list);
+            return list;
+        }
+    }
 }

@@ -9,4 +9,7 @@ import java.util.List;
 public interface ItemBiz {
     public Pages<Item> listItem(Item item, Integer pageIndex, Integer pageSize);
 
+    public Boolean insertItem(Item item);
+
+    public Boolean deleteItem(Integer [] itemId);
 }

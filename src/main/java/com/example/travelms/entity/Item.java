@@ -37,13 +37,42 @@ public class Item implements Serializable {
     //旅行方式ID
     private Integer styleId;
 
+    private  String picPath;
 
-   //酒店名
+    private Integer brandId;
+
+    //酒店名
     private  String brandName;
     //地区名
     private  String countryName;
     //地域名
     private  String continentName;
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
+    }
+
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
+    }
+
+    private  String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getBrandName() {
         return brandName;
@@ -191,6 +220,8 @@ public class Item implements Serializable {
     public void setStyleId(Integer styleId) {
         this.styleId = styleId;
     }
+
+
 
 
     @Override
