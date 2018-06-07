@@ -60,8 +60,12 @@ public class LoginControl {
     }
     //会员管理页面
     @RequestMapping("UserName_management")
-    public String UserName_management(){
+    public String UserName_management() {
         return "UserName_management";
+    }
+    @RequestMapping("Hotel_management")
+    public String hotel_management(){
+        return "Hotel_management";
     }
 
 }

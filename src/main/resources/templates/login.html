@@ -3,28 +3,21 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
+
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
 		<title>登录</title>
 		<link rel="stylesheet" href="../static/lib/layui/css/layui.css" media="all" />
 		<link rel="stylesheet" href="../static/css/login.css" />
 	</head>
-
-	<!--<body class="beg-login-bg" background="../static/images/bg.jpg">-->
 	<body class="beg-login-bg" background="../static/images/background.jpg">
 		<div class="beg-login-box">
 			<header>
 				<h1>欢迎登录</h1>
 			</header>
 			<div class="beg-login-main">
-
-				<!--<form action="/doLogin" method="post" class="layui-form">-->
 					<form  th:action="@{/doLogin}" th:method="post" class="layui-form">
-                        <!-- <input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />-->
-
-                <!---->
                 <div class="layui-form-item">
                     <label class="beg-login-icon">
                         <i class="layui-icon">&#xe612;</i>
@@ -34,7 +27,6 @@
                             <option value="1">唯一标识登录</option>
                         </select>
 				</div>
-                <!---->
                 
 					<div class="layui-form-item">
 						<label class="beg-login-icon">
@@ -82,5 +74,4 @@
 			});*/
 		</script>
 	</body>
-
 </html>

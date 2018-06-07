@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     
     <head>
         <meta charset="utf-8">
@@ -12,52 +12,151 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+        <script src="../static/js/x-layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+        <!--<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />-->
     </head>
     
     <body>
         <div class="x-body">
-            <form class="layui-form">
+            <form action="insertItem" method="post" id="formsubmit" enctype="multipart/form-data">
                 <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">
-                        类型名称</label>
+                    <label  class="layui-form-label">
+                        标题</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input">
+                        <input type="text" class="layui-input" placeholder="如（德国 妙趣童话王国）" name="title">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">必填</div>
+
                 </div>
-                
-               
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        游玩时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（8晚10天）" name="playTime">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        出发城市</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（北京）" name="city">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        价格</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" placeholder="如（1000000）" name="price">
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <label  class="layui-form-label">
+                        地域</label>
+                    <div class="layui-input-inline">
+                        <select id="continent" style="width: 400px;height: 40px;border: #ebebeb 1px solid;color: #8D8D8D" name="continentId">
+                            <option th:value="0">请选择</option>
+                            <option  th:each="con : ${conList}" th:value="${con.continentId}"><span th:text="${con.continentName}">欧洲</span></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item" >
+                    <label  class="layui-form-label">
+                        地点</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" id="ss" name="countryId">
+                            <option th:value="0">请选择</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行偏好</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" name="hobbyId">
+                           <option th:value="0">请选择</option>
+                            <option th:each="h : ${hobbyList}" th:value="${h.hobbyId}"><span th:text="${h.hobbyName}">出游首选</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行主题</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" name="travelId">
+                            <option th:value="0">请选择</option>
+                            <option th:each="tr : ${travelList}" th:value="${tr.travelId}"><span th:text="${tr.travelName}">亲子优选</span></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        交通工具</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" name="trafficId">
+                            <option th:value="0">请选择</option>
+                            <option th:each="traff : ${trafficList}" th:value="${traff.trafficId}"><span th:text="${traff.trafficName}">商务舱</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        旅行方式</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" name="styleId">
+                            <option th:value="0">请选择</option>
+                            <option th:each="sy : ${styleList}" th:value="${sy.styleId}"><span th:text="${sy.styleName}">私享游</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        酒店品牌</label>
+                    <div class="layui-input-inline">
+                        <select style="width: 400px;height: 40px;border: #ebebeb 1px solid;;color: #8D8D8D" name="brandId">
+                            <option th:value="0">请选择</option>
+                            <option th:each="br : ${brandList}" th:value="${br.brandId}"><span th:text="${br.brandName}">****</span></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label  class="layui-form-label">
+                        上传图片</label>
+                    <div class="layui-input-inline">
+                        <input type="file" class="layui-input" name="picFile" id="picFile">
+                    </div>
+                </div>
+
                 <div class="layui-form-item layui-form-text">
                     <label for="L_sign" class="layui-form-label">
-                        备注信息
+                        说明
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="随便写些什么刷下存在感" id="L_sign" name="sign" autocomplete="off"
-                        class="layui-textarea" style="height: 80px;"></textarea>
+                        <textarea placeholder="随便写些什么刷下存在感" id="L_sign" name="explain" autocomplete="off"
+                                  class="layui-textarea" style="height: 80px;"  ></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_sign" class="layui-form-label">
                     </label>
-                    <button class="layui-btn" key="set-mine" lay-filter="save" lay-submit>
-                        提交
-                    </button>
+                   <p onclick="x_admin_close()"><input type="submit" id="submit"  value="提交"/></p>
+
                 </div>
             </form>
         </div>
-        <script src="./lib/layui/layui.js" charset="utf-8">
-        </script>
-        <script src="./js/x-layui.js" charset="utf-8">
-        </script>
+
         <script>
-            layui.use(['form','layer'], function(){
+           /* layui.use(['form','layer'], function(){
                 $ = layui.jquery;
               var form = layui.form()
               ,layer = layui.layer;
             
              
-              //监听提交
+           /!*   //监听提交
               form.on('submit(save)', function(data){
                 console.log(data);
                 layer.alert("提交成功", {icon: 6},function () {
@@ -68,9 +167,67 @@
                 });
                 return false;
               });
-              
+              *!/
               
             });
+*/
+
+            $(function () {
+                $("#continent").on("change",function(){
+                    var conId=$(this).val();
+                    $.ajax({
+                        url:"selectCountry",
+                        data:{"continentId":conId},
+                        dataType:"json",
+                        type:"post",
+                        success(data){
+                            $("#ss").children().filter("option").remove();
+                            for (var i = 0; i < data.length; i++) {
+                                var html =
+                                    '<option value='+data[i].countryId+'>' + data[i].countryName + '</option>';
+                                $.each($("#ss"), function (i, t) {
+                                    $(t).html(html + $(t).html())
+                                })
+                            }
+                        }
+                    })
+                });
+            })
+           /* $(function () {
+                $("#submit").on("click",function () {
+                    /!*var data=$("#form").serializeArray();
+                    var formdata=new FormData();
+                    var uploadFile = $('#excelFile').get(0).files[0];
+                    formdata.append("uploadFile",uploadFile);
+                    console.log(formdata)*!/
+                    var formData = new FormData();
+                    formData.append("picFile",'aaaa');
+                    console.log(formData);
+                    /!*if (typeof (file) == "undefined" || file.size <= 0) {
+                        alert("请选择图片");
+                        return;
+                    }
+                    var formFile = new FormData();
+                    formFile.append("action", "UploadVMKImagePath");
+                    formFile.append("file", file); //加入文件对象
+
+                    var data = formFile;*!/
+                    $.ajax({
+                        url:"insertItem",
+                        data:formData,
+                        dataType:"json",
+                        type:"post",
+                        cache: false,//上传文件无需缓存
+                        processData: false,//用于对data参数进行序列化处理 这里必须false
+                        contentType: false, //必须
+                        success:function (data) {
+
+                        }
+                    })
+                })
+            })
+*/
+
         </script>
         <script>
         var _hmt = _hmt || [];

@@ -2,8 +2,9 @@
 	width: 450px;
 	height: 350px;
 	margin: 20% auto;
-	background-color: rgba(255, 255, 255, 255);
+	background-color: #fff;
 	border-radius: 10px;
+    /*filter:alpha(Opacity=80);-moz-opacity:0.5;opacity: 0.5;*/
 }
 
 .beg-login-box header {

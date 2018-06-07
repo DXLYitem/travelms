@@ -26,7 +26,7 @@
     </update>
     <!--根据Id删除地域-->
     <delete id="deleteBycontinentId">
-        DELETE FROM continent
+       delete from continent
        <where>
            <if test="continentId!=null"> AND continentId=#{continentId}</if>
        </where>
@@ -34,4 +34,10 @@
     <insert id="insertContinent">
          INSERT INTO continent(continentName,holidayId) values(#{continentName},#{holidayId})
     </insert>
+
+
+    <!--二级联动-->
+    <select id="selectContinentTwo" resultType="Continent" >
+        SELECT * FROM continent
+    </select>
 </mapper>

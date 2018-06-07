@@ -12,4 +12,7 @@ public interface ContinentBiz {
   int updateBycontId(Continent continent);
   int delBycontId(Integer continentId);
   int addContinent(Continent continent);
+
+
+  List<Continent> listContinent();
 }
