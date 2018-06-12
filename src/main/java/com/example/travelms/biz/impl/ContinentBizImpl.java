@@ -5,7 +5,6 @@ import com.example.travelms.dao.ContinentDao;
 import com.example.travelms.entity.Continent;
 import com.example.travelms.util.Pages;
 import com.example.travelms.util.RedisUtil;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,13 +24,13 @@ public class ContinentBizImpl implements ContinentBiz{
         if(pageIndex==null||pageIndex==0){
             pageIndex=1;
         }
-        if(pageSize==null || pageSize==0){
+       /* if(pageSize==null || pageSize==0){
             pageSize=5;
-        }
+        }*/
         Pages<Continent>page=new Pages<Continent>();
        page.setPageIndex(pageIndex);
        page.setPageSize(pageSize);
-       page.setTotalCount(continentDao.continentCount());
+       page.setTotalCount(continentDao.continentCount(continent));
        page.setList(continentDao.selectContinent(continent,(pageIndex-1)*pageSize,pageSize));
        return page;
     }
@@ -46,12 +45,12 @@ public class ContinentBizImpl implements ContinentBiz{
     }
 
     @Override
-    public int delBycontId(Integer continentId) {
+    public boolean delBycontId(Integer [] continentId) {
         String conKey="conKey"+continentId;
         if(redisUtil.exists(conKey)) {
             redisUtil.remove(conKey);
         }
-        return continentDao.deleteBycontinentId(continentId);
+        return continentDao.deleteBycontinentId(continentId)>0;
         }
 
     @Override
@@ -64,6 +63,11 @@ public class ContinentBizImpl implements ContinentBiz{
 
     }
 
+    @Override
+    public List<Continent> listExcelController() {
+
+        return continentDao.selectExcelContinent();
+    }
 
 
     @Override

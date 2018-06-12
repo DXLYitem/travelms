@@ -1,8 +1,5 @@
 package com.example.travelms.control;
-
-import com.example.travelms.biz.ContinentBiz;
 import com.example.travelms.biz.UserBiz;
-import com.example.travelms.entity.Continent;
 import com.example.travelms.entity.User;
 import com.example.travelms.util.Pages;
 import org.springframework.stereotype.Controller;

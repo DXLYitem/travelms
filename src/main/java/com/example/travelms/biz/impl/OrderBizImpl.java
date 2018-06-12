@@ -31,7 +31,7 @@ public class OrderBizImpl implements OrderBiz{
         Pages<Order>page=new Pages<Order>();
         page.setPageIndex(pageIndex);
         page.setPageSize(pageSize);
-        page.setTotalCount(orderDao.orderCount());
+        page.setTotalCount(orderDao.orderCount(order));
         page.setList(orderDao.selectOrder(order,(pageIndex-1)*pageSize,pageSize));
         return page;
     }

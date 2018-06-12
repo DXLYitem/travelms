@@ -26,7 +26,7 @@ public class UserBizImpl implements UserBiz{
         Pages<User>page=new Pages<User>();
         page.setPageIndex(pageIndex);
         page.setPageSize(pageSize);
-        page.setTotalCount(userDao.userCount());
+        page.setTotalCount(userDao.userCount(user));
         page.setList(userDao.selectUser(user,(pageIndex-1)*pageSize,pageSize));
         return page;
     }

@@ -16,5 +16,5 @@ public interface UserDao {
    * 会员管理总条数
    * @return
    */
-  int userCount();
+  int userCount(@Param("user")User user);
 }
