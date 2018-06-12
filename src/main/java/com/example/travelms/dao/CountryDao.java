@@ -7,11 +7,13 @@ import java.util.List;
 public interface CountryDao {
     public List<Country> selectPageByCountry(@Param("country")Country country, @Param("pageIndex")Integer pageIndex, @Param("pageSize") Integer pageSize);
 
-    public Integer count();
+    public Integer count(@Param("country")Country country);
 
-    int delete(@Param("countryId") Integer countryId);
-
-    int insert(Country country);
+    Integer insert(@Param("country")Country country);
 
     public List<Country> selectCountry(@Param("continentId") Integer continentId);
+
+    int update(@Param("country") Country country);
+
+    Integer deleteAll(Integer [] countryId);
 }

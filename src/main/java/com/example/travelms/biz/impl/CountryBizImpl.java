@@ -21,32 +21,26 @@ public class CountryBizImpl implements CountryBiz{
         if (pageIndex == null || pageIndex == 0) {
             pageIndex = 1;
         }
-        Integer num = countryDao.count();
+        Integer num = countryDao.count(country);
         Pages<Country> page = new Pages<Country>();
         page.setPageIndex(pageIndex);
         page.setPageSize(pageSize);
-        page.setTotalCount(countryDao.count());
+        page.setTotalCount(countryDao.count(country));
         page.setList(countryDao.selectPageByCountry(country, (pageIndex - 1) * pageSize, pageSize));
         return page;
     }
 
     @Override
-    public int remove(Integer countryId) {
-        String couKey="couKey";
+    public Boolean add(Country country) {
+        String couKey="couKey"+country.getCountryId();
         if(redisUtil.exists(couKey)) {
             redisUtil.remove(couKey);
         }
-        int num=countryDao.delete(countryId);
-        return num;
-    }
-
-    @Override
-    public int add(Country country) {
-        String couKey="couKey";
-        if(redisUtil.exists(couKey)) {
-            redisUtil.remove(couKey);
+        if(countryDao.insert(country)>0){
+            return  true;
+        }else{
+            return false;
         }
-        return countryDao.insert(country);
     }
 
     @Override
@@ -62,4 +56,27 @@ public class CountryBizImpl implements CountryBiz{
             return list;
         }
     }
+
+    @Override
+    public int modify(Country country) {
+        String couKey = "couKey" + country.getCountryId();
+        if (redisUtil.exists(couKey)) {
+            redisUtil.remove(couKey);
+        }
+        return countryDao.update(country);
+    }
+
+    @Override
+    public Boolean removeAll(Integer[] countryId) {
+        /*String couKey="couKey"+countryId;
+        if(redisUtil.exists(couKey)) {
+            redisUtil.remove(couKey);
+        }*/
+        if (countryDao.deleteAll(countryId) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

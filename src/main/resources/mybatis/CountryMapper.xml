@@ -6,25 +6,23 @@
         <result column="continentName" property="continentName"></result>
     </resultMap>
     <select id="selectPageByCountry"  resultMap="continentMap">
-        SELECT country.*,continent.continentName FROM country
-        INNER JOIN continent ON continent.continentId=country.continentId
+        SELECT cou.*,con.continentName FROM country cou
+        INNER JOIN continent con ON con.continentId=cou.continentId
         <where>
-            <if test="country.countryId != null"> and countryId=#{country.countryId}</if>
+            <if test="country.countryName!=null and country.countryName!=''">or cou.countryName LIKE CONCAT ('%',#{country.countryName},'%')</if>
+            <if test="country.continentName!=null and country.continentName!=''">or con.continentName LIKE CONCAT ('%',#{country.continentName},'%')</if>
         </where>
         LIMIT #{pageIndex},#{pageSize}
     </select>
     <!--查询条数-->
     <select id="count"  resultType="Integer" >
-        SELECT COUNT(*)    FROM country
-    </select>
-
-    <!--根据Id删除地域-->
-    <delete id="delete">
-        DELETE FROM country
+        SELECT COUNT(*) FROM country cou
+        LEFT JOIN  continent con ON cou.continentId=con.continentId
         <where>
-            <if test="countryId!=null"> AND countryId=#{countryId}</if>
+            <if test="country.countryName!=null and country.countryName!=''">or cou.countryName LIKE CONCAT ('%',#{country.countryName},'%')</if>
+            <if test="country.continentName!=null and country.continentName!=''">or con.continentName LIKE CONCAT ('%',#{country.continentName},'%')</if>
         </where>
-    </delete>
+    </select>
 
     <select id="selectCountry"  resultType="Country"  parameterType="int">
         SELECT * FROM country
@@ -32,4 +30,28 @@
             <if test="continentId != null"> and continentId=#{continentId}</if>
         </where>
     </select>
+
+    <insert id="insert" parameterType="Country">
+        INSERT INTO country(countryName,continentId)
+        VALUE(#{country.countryName},#{country.continentId})
+    </insert>
+
+    <update id="update">
+        UPDATE country
+        <set>
+            <if test="country.countryName!=null">countryName=#{country.countryName}</if>
+            <if test="country.continentId!=null">continentId=#{country.continentId}</if>
+        </set>
+        WHERE countryId=#{country.countryId}
+    </update>
+
+    <delete id="deleteAll" parameterType="Integer[]">
+        delete from country
+        <where>
+            countryId
+            <foreach  collection="array" item="countryId" open="in (" close=")" separator=",">
+                #{countryId}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

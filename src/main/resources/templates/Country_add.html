@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>
-        添加地区
+        地区管理-添加
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,70 +12,37 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
-    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="../static/js/vue.js"></script>
-    <script src="../static/js/x-layui.js"></script>
     <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
-
+    <script src="../static/js/x-layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
 </head>
-
 <body>
 <div class="x-body">
-    <form class="layui-form">
-        <div class="layui-form-item">
-            <label for="name" class="layui-form-label">
-                <span class="x-red">*</span>地区名称</label>
+    <form action="addCountry" method="post" id="formsubmit" enctype="multipart/form-data">
+        <div class="layui-form-item" >
+            <label  class="layui-form-label">
+                地域</label>
             <div class="layui-input-inline">
-                <input type="text" name="countryName" class="layui-input">
-                <span class="city" style="color: red;font-size:10px"></span>
-            </div>
-        </div>
-        <div class="layui-form-item" style="display: none">
-            <label class="layui-form-label">地域Id</label>
-            <div class="layui-input-inline">
-                <input type="text" name="continenId" class="layui-input" value="2">
-            </div>
-        </div>
-        <div class="layui-input-inline">
-                <select>
-                    <option th:value ="volvo">Volvo</option>
-                    <option th:value ="saab">Saab</option>
-                    <option th:value="opel">Opel</option>
-                    <option th:value="audi">Audi</option>
+                <select id="continent" style="width: 400px;height: 40px;border: #ebebeb 1px solid;color: #8D8D8D" name="continentId">
+                    <option th:value="0">请选择</option>
+                    <option  th:each="con : ${conList}" th:value="${con.continentId}"><span th:text="${con.continentName}">欧洲</span></option>
                 </select>
+            </div>
         </div>
-        <input type="submit" class="layui-btn" value="提交" id="submit">
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                地区</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" placeholder="如（希腊）" name="countryName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_sign" class="layui-form-label">
+            </label>
+            <p onclick="x_admin_close()"><input type="submit" id="submit"  value="提交"/></p>
+        </div>
     </form>
 </div>
-<script>
-    $(function () {
-        $("#submit").on('click',function () {
-            var countryName=$('[name="countryName"]').val();
-            var continenId=$('[name="continenId"]').val();
-            if(countryName==""||countryName==null){
-                $('.city').text('*请输入地区名称！');
-                return;
-            }
-            $.ajax({
-                url : "insertCountry2",
-                type : "post",
-                data :{"countryName":countryName,"continenId":continenId},
-                dataType : "json",
-                success : function(data){
-                    alert('添加成功！');
-                },
-                error : function(data) {
-                    x_admin_close();
-                }
-            })
-        })
-    })
-
-    layui.use(['form','layer'], function(){
-        $ = layui.jquery;
-        var form = layui.form()
-            ,layer = layui.layer;
-</script>
 <script>
     var _hmt = _hmt || [];
     (function() {

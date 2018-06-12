@@ -9,11 +9,13 @@ import java.util.List;
 public interface CountryBiz {
     public Pages<Country> listPageCountry(Country country, Integer pageIndex, Integer pageSize);
 
-    int remove(Integer countryId);
+    Boolean add(Country country);
 
-    int add(Country country);
+    int modify(Country country);
 
     public List<Country> listCountry(Integer continentId);
+
+    Boolean removeAll(Integer [] countryId);
 
 }
 

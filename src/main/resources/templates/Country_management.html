@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>
@@ -17,39 +17,33 @@
     <script type="text/javascript" src="../static/js/vue.js"></script>
 </head>
 <body>
-
-<!--
-<script src="../static/lib/layui/layui.js" charset="utf-8"></script>
-<script src="../static/js/x-layui.js" charset="utf-8"></script>
--->
-
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
               <a><cite>旅游项目</cite></a>
             </span>
-    <!-- <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>-->
 </div>
+<div id="div">
 <form class="layui-form x-center" action="" style="width:500px">
     <div class="layui-form-pane" style="margin-top: 15px;">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="width:400px">
-                <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input">
+                <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input" id="sou">
             </div>
             <div class="layui-input-inline" style="width:40px;">
-                <button style="height: 37px" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                <a style="height: 37px;line-height: 37px" class="layui-btn"  lay-submit="" lay-filter="sreach" v-on:click="ss"><i class="layui-icon">&#xe615;</i></a>
             </div>
         </div>
     </div>
 </form>
 <div class="x-body">
-    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px">
-        <button class="layui-btn" onclick="Warning_management_add('添加地区','addCountry','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
-    <div id="div">
+    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
+        <span class="x-right" style="line-height:20px">
+        <button class="layui-btn" onclick="Warning_management_add('添加地区','showAddCountry','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
     <table class="layui-table">
         <thead>
         <tr>
-            <th width="50"><input type="checkbox"  name="a" />全选</th>
+            <th width="50" ><input type="checkbox"  value="0" name="checkbox" onclick="checkd()"/>全选</th>
             <th>编号</th>
             <th>地区名称</th>
             <th>地域名称</th>
@@ -58,19 +52,15 @@
         </thead>
         <tbody id="x-link">
         <tr v-for="city in page.list">
-            <td width="50"><input type="checkbox"  name="checkbox" /></td>
+            <td width="50"><input type="checkbox"  name="checkbox" v-bind:value="city.countryId"/></td>
             <td class="countryId">{{city.countryId}}</td>
             <td>{{city.countryName}}</td>
             <td>{{city.continentName}}</td>
             <td class="td-manage">
-                <a title="处理" href="javascript:;" onclick="data_management_look('查看','data_management_look.html','4','','510')"
-                   class="ml-5" style="text-decoration:none">
-                    <i class="layui-icon">&#xe642;</i>
+                <a title="修改" href="javascript:;" onclick="update(this)" class="ml-5" style="text-decoration:none">
+                    <i class="layui-icon" id="cid">&#xe642;</i>
                 </a>
-                <!--<a id="del" title="删除" href="javascript:;" v-on:click="data_management_del(this,'1')"
-                   style="text-decoration:none">-->
-                <a id="del" title="删除" href="javascript:;" v-on:click="del(city.countryId,$event)"
-                   style="text-decoration:none">
+                <a title="删除"  onclick="delet(this)" style="text-decoration:none">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
@@ -96,38 +86,109 @@
 </div>
 
 <script>
+    function update(e) {
+        var id=$(e).parent().parent().find("td").eq(1).text();
+        var name=$(e).parent().parent().find("td").eq(2).text();
+        data_management_look('修改','showUpdateCountry?countryId='+id+'&'+'countryName='+name,'4','','510');
+    }
     layui.use(['element','laypage','layer','form'], function(){
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
         /*laypage = layui.laypage;//分页*/
         layer = layui.layer;//弹出层
         form = layui.form();//弹出层
-
-
-        //以上模块根据需要引入
-       /* laypage({
-            cont: 'page'
-            ,pages: 100
-            ,first: 1
-            ,last: 100
-            ,prev: '<em><</em>'
-            ,next: '<em>></em>'
-        });*/
-
-
     })
 
-
-
-    //以上模块根据需要引入
-
     //批量删除提交
-    /*function delAll () {
+    function delAll () {
+        var checkArry = document.getElementsByName("checkbox");
+        var count=0;
+        var checked = [];
+
+        for (var i = 0; i < checkArry.length; i++) {
+            if(checkArry[i].checked == true){
+                count++;
+                //选中的操作
+                $('input:checkbox:checked').each(function() {
+                    checked.push($(this).val());
+                });
+                break;
+            }
+        }
+        if(count==0){
+            //未选中的操作
+            layer.msg('请选择要删除的项目', {icon: 0});
+        }else{
+            layer.confirm('确认要删除吗？',function(index){
+                //捉到所有被选中的，发异步进行删除
+                $.ajax({
+                    url:"deleteCountry",
+                    traditional: true,
+                    data:{"countryId":checked},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        if(data!=null){
+                            layer.msg('删除成功', {icon: 1});
+                            vuee.page=data;
+                            var checkArry = document.getElementsByName("checkbox");
+                            for (var i = 0; i < checkArry.length; i++) {
+                                checkArry[i].checked = false;
+                            }
+                        }else{
+                            layer.msg('删除失败', {icon: 0});
+                        }
+
+                    }
+                });
+
+            });
+        }
+    }
+
+    // 删除
+    function delet(e) {
+        var checked = [];
+        var a= $(e).parent().parent().find("td").eq(1).text();
+        checked.push(a);
         layer.confirm('确认要删除吗？',function(index){
             //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
+            $.ajax({
+                url:"deleteCountry",
+                traditional: true,
+                data:{"countryId":checked},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    if(data!=null){
+                        layer.msg('删除成功', {icon: 1});
+                        vuee.page=data;
+                        console.log(data)
+                        var checkArry = document.getElementsByName("checkbox");
+                        for (var i = 0; i < checkArry.length; i++) {
+                            checkArry[i].checked = false;
+                        }
+                    }else{
+                        layer.msg('删除失败', {icon: 0});
+                    }
+
+                }
+            });
         });
-    }*/
+    }
+    //全选
+    var zt=false;
+    function checkd(){
+        if(zt==true){
+            zt=false;
+        }else{
+            zt=true;
+        }
+        var a = document.getElementsByTagName("input");
+        for (var i=0; i<a.length; i++)
+            if (a[i].type == "checkbox")
+                a[i].checked = zt;
+    }
 
     /*用户-添加*/
     function Warning_management_add(title,url,w,h){
@@ -139,18 +200,10 @@
         x_admin_show(title,url,w,h);
     }
 
-    /*删除*/
-    /*function data_management_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-    }*/
-
+    var vuee;
     $(document).ready(function(){
         var index;
-        var e=new Vue({
+        vuee=new Vue({
             el:"#div",
             data:{
                 city:[],
@@ -172,6 +225,25 @@
                 mo:function () {
                     index=parseInt($("#mo").text());
                     fenye();
+                },
+                ss:function () {
+                    index=1;
+                    var sou1=$("#sou").val();
+                    var sou = $.trim(sou1);
+                    $.ajax({
+                        url:"country",
+                        data:{"pageIndex":index,"countryName":sou,"continentName":sou},
+                        type:"post",
+                        dataType:"json",
+                        success:function(data){
+                            vuee.page=data;
+                            var checkArry = document.getElementsByName("checkbox");
+                            for (var i = 0; i < checkArry.length; i++) {
+                                checkArry[i].checked = false;
+                            }
+                        }
+
+                    })
                 },
                 del:function (index,event) {
                     layer.confirm('确认要删除吗？',function(i){
@@ -197,7 +269,11 @@
                 type:"post",
                 dataType:"json",
                 success:function(data){
-                    e.page=data;
+                    vuee.page=data;
+                    var checkArry = document.getElementsByName("checkbox");
+                    for (var i = 0; i < checkArry.length; i++) {
+                        checkArry[i].checked = false;
+                    }
                 }
 
             })
@@ -208,22 +284,11 @@
             type:"post",
             dataType:"json",
             success:function(data){
-                e.page=data;
+                vuee.page=data;
             }
 
         })
     })
 </script>
-<!--<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-
-
-
-</scrip-->
 </body>
 </html>
