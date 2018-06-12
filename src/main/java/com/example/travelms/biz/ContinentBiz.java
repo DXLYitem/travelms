@@ -10,8 +10,9 @@ import java.util.List;
 public interface ContinentBiz {
   Pages<Continent> listContinent(Continent continent, Integer pageIndex, Integer pageSize);
   int updateBycontId(Continent continent);
-  int delBycontId(Integer continentId);
+  boolean delBycontId(Integer [] continentId);
   int addContinent(Continent continent);
+  List<Continent>listExcelController();
 
 
   List<Continent> listContinent();

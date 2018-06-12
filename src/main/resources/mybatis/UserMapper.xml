@@ -6,12 +6,23 @@
     <select id="selectUser" resultType="User">
         SELECT * FROM USER
         <where>
-            <if test="user.userId!=null">and userId=#{user.userId}</if>
+            <if test="user.userId!=null"> or userId LIKE CONCAT ('%',#{user.userId},'%')</if>
+            <if test="user.userName !=null"> or userName LIKE CONCAT ('%',#{user.userName},'%')</if>
+            <if test="user.phone!=null"> or phone LIKE CONCAT ('%',#{user.phone},'%')</if>
+            <if test="user.email !=null"> or email LIKE CONCAT ('%',#{user.email},'%')</if>
+            <if test="user.scores !=null"> or scores LIKE CONCAT ('%',#{user.scores},'%')</if>
         </where>
          LIMIT #{pageIndex},#{pageSize}
     </select>
     <!--会员总条数-->
     <select id="userCount" resultType="Integer">
         SELECT COUNT(*) FROM  USER
+        <where>
+            <if test="user.userId!=null"> or userId LIKE CONCAT ('%',#{user.userId},'%')</if>
+            <if test="user.userName !=null"> or userName LIKE CONCAT ('%',#{user.userName},'%')</if>
+            <if test="user.phone!=null"> or phone LIKE CONCAT ('%',#{user.phone},'%')</if>
+            <if test="user.email !=null"> or email LIKE CONCAT ('%',#{user.email},'%')</if>
+            <if test="user.scores !=null"> or scores LIKE CONCAT ('%',#{user.scores},'%')</if>
+        </where>
     </select>
 </mapper>

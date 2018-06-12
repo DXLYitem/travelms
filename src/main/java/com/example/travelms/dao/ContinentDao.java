@@ -19,7 +19,7 @@ public interface ContinentDao {
      * 地域表总条数
      * @return
      */
-    int continentCount();
+    Integer continentCount(@Param("con") Continent con);
 
     /**
      * 修改地域表
@@ -29,7 +29,13 @@ public interface ContinentDao {
     /**
      *根据Id删除地域
      */
-    int deleteBycontinentId(@Param("continentId") Integer continentId);
+    Integer deleteBycontinentId( Integer [] continentId);
+
+    /**
+     * 生成Excel数据
+     * @return
+     */
+    List<Continent>selectExcelContinent();
 
 
     List<Continent> selectContinentTwo();

@@ -18,5 +18,5 @@ public interface OrderDao {
      * 订单总条数
      * @return
      */
-    int orderCount();
+    int orderCount(@Param("order")Order order);
 }

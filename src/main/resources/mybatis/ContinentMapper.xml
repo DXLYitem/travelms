@@ -7,13 +7,24 @@
     <select id="selectContinent" resultType="Continent">
         SELECT * FROM  continent
         <where>
-           <if test="con.continentId !=null">and continentId=#{con.continentId}</if>
+           <if test="con.continentId !=null"> or continentId LIKE CONCAT ('%',#{con.continentId},'%')</if>
+           <if test="con.continentName !=null"> or continentName LIKE CONCAT ('%',#{con.continentName},'%')</if>
         </where>
         LIMIT #{pageIndex},#{pageSize}
     </select>
+
+    <!--生成Excel表格-->
+    <select id="selectExcelContinent" resultType="Continent">
+        SELECT * FROM  continent
+    </select>
+
     <!--查询地域总条数-->
     <select id="continentCount" resultType="Integer">
          SELECT COUNT(*) FROM  continent
+        <where>
+            <if test="con.continentId !=null"> or continentId LIKE CONCAT ('%',#{con.continentId},'%')</if>
+            <if test="con.continentName !=null"> or continentName LIKE CONCAT ('%',#{con.continentName},'%')</if>
+        </where>
     </select>
     <!--修改地域表-->
     <update id="updateBycontinentId">
@@ -25,10 +36,13 @@
         WHERE continentId=#{continent.continentId}
     </update>
     <!--根据Id删除地域-->
-    <delete id="deleteBycontinentId">
+    <delete id="deleteBycontinentId" parameterType="Integer[]">
        delete from continent
        <where>
-           <if test="continentId!=null"> AND continentId=#{continentId}</if>
+           continentId
+           <foreach collection="array" item="continentId" open="in (" close=")" separator=",">
+             #{continentId}
+           </foreach>
        </where>
     </delete>
     <insert id="insertContinent">

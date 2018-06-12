@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-       地域管理
+        地域管理
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -23,135 +23,182 @@
               <a><cite>地域管理</cite></a>
             </span>
 </div>
-<form class="layui-form x-center" action="" style="width:500px">
-    <div class="layui-form-pane" style="margin-top: 15px;">
-        <div class="layui-form-item">
-            <div class="layui-input-inline" style="width:400px">
-                <input type="text" name="username"  placeholder="搜索内容" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-input-inline" style="width:80px">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+<div id="div">
+    <form class="layui-form x-center" action="" style="width:500px">
+        <div class="layui-form-pane" style="margin-top: 15px;">
+            <div class="layui-form-item">
+                <div class="layui-input-inline" style="width:400px">
+                    <input type="text" name="username" placeholder="搜索从这里开始..." autocomplete="off" class="layui-input"
+                           id="sou">
+                </div>
+                <div class="layui-input-inline" style="width:40px;">
+                    <a style="height: 37px;line-height: 37px" class="layui-btn" lay-submit="" lay-filter="sreach"
+                       v-on:click="ss"><i class="layui-icon">&#xe615;</i></a>
+                </div>
             </div>
         </div>
-    </div>
-</form>
-<div class="x-body">
-    <div id="div">
-    <table class="layui-table">
+    </form>
+    <div class="x-body">
+        <table class="layui-table">
 
-        <thead>
-        <tr>
-            <th>用户编号</th>
-            <th>订单号</th>
-            <th>下单时间</th>
-            <th>订单金额</th>
-            <th>目的地</th>
-            <th>订单状态</th>
-        </tr>
-        </thead>
-        <tbody id="x-link">
-        <tr v-for="continent in page.list">
-            <td  class="continentId">{{continent.orderId}}</td>
-            <td>{{continent.orderNum}}</td>
-            <td>{{continent.date}}</td>
-            <td>{{continent.price}}</td>
-            <td>{{continent.destination}}</td>
-            <td>{{continent.status}}</td>
-         <!--   <td>{{continent.customizeid}}</td>
-            <td>{{continent.city}}</td>
-            <td>{{continent.itemid}}</td>
-            <td>{{continent.itemname}}</td>
-            <td>{{continent.roomnum}}</td>-->
-        </tr>
-        </tbody>
-    </table>
+            <thead>
+            <tr>
+                <th>用户编号</th>
+                <th>订单号</th>
+                <th>下单时间</th>
+                <th>订单金额</th>
+                <th>目的地</th>
+                <th>订单状态</th>
+                <th>出发城市</th>
+                <th>项目名</th>
+                <th>房间数</th>
+                <th>是否支付</th>
+            </tr>
+            </thead>
+            <tbody id="x-link">
+            <tr v-for="continent in page.list">
+                <td class="continentId">{{continent.orderId}}</td>
+                <td>{{continent.orderNum}}</td>
+                <td>{{continent.date}}</td>
+                <td>{{continent.price}}</td>
+                <td>{{continent.destination}}</td>
+                <td>{{continent.status}}</td>
 
-    <div id="page">
-        <ul class="page-num-ul clearfix">
-            <li>共条<span>{{page.totalCount}}</span>记录&nbsp;&nbsp;
-                <span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span> 页</li>
-            <div v-if="page.pageIndex>1">
-                <a id="shou" v-on:click="shou">首页</a>
-                <a id="shang" v-on:click="shang">上一页</a>
-            </div>
-            <div v-if="page.pageIndex<page.totalPage">
-                <a id="xia" v-on:click="xia">下一页</a>
-                <a id="mo2" v-on:click="mo">最后一页</a>
-            </div>
-        </ul>
+                <td>{{continent.city}}</td>
+                <td>{{continent.itemname}}</td>
+                <td>{{continent.roomnum}}</td>
+                <td>{{continent.ispayment}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div id="page" class="container">
+            <ul class="page-num-ul clearfix">
+                <li v-if="page.pageIndex>1">
+                    <a id="shou" v-on:click="shou">首页</a>
+                    <a id="shang" v-on:click="shang">上一页</a>
+                </li>
+                <li v-if="page.pageIndex<page.totalPage">
+                    <a id="xia" v-on:click="xia">下一页</a>
+                    <a id="mo2" v-on:click="mo">末页</a>
+                </li>
+                <li><a href="javascript:void(0)"><span id="dangqian">{{page.pageIndex}}</span>/<span id="mo">{{page.totalPage}}</span>
+                    页</a></li>
+                <li><a href="javascript:void(0)">共{{page.totalCount}}条</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 </div>
 </div>
 <script>
-   layui.use(['element','laypage','layer','form'], function(){
+    layui.use(['element', 'laypage', 'layer', 'form'], function () {
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
-       /* laypage = layui.laypage;//分页*/
+        /* laypage = layui.laypage;//分页*/
         layer = layui.layer;//弹出层
         form = layui.form();//弹出层
     });
 
     /*用户-添加*/
-    function Warning_management_add(title,url,w,h){
-        x_admin_show(title,url,w,h);
+    function Warning_management_add(title, url, w, h) {
+        x_admin_show(title, url, w, h);
     }
 
     // 编辑
-    function data_management_look (title,url,id,w,h) {
-        x_admin_show(title,url,w,h);
+    function data_management_look(title, url, id, w, h) {
+        x_admin_show(title, url, w, h);
     }
 
-   $(document).ready(function(){
-      var index;
-       var vuee=new Vue({
-           el: "#div",
-           data: {
-               continent: [],
-               page: {}
-           },
-           methods: {
-               xia: function () {
-                   index = parseInt($("#dangqian").text()) + 1;
-                   fenye();
-               },
-               shang: function () {
-                   index = parseInt($("#dangqian").text()) - 1;
-                   fenye();
-               },
-               shou: function () {
-                   index = 1;
-                   fenye();
-               },
-               mo: function () {
-                   index = parseInt($("#mo").text());
-                   fenye();
-               }
-           }
-       })
-       //分页
-       function fenye() {
-           $.ajax({
-               url:"ordercontrol",
-               data:{pageIndex:index},
-               type:"post",
-               dataType:"json",
-               success:function(data){
-                   vuee.page=data;
-               }
+    $(document).ready(function () {
+        var index;
+        var vuee = new Vue({
+            el: "#div",
+            data: {
+                continent: [],
+                page: {}
+            },
+            methods: {
+                xia: function () {
+                    index = parseInt($("#dangqian").text()) + 1;
+                    fenye();
+                },
+                shang: function () {
+                    index = parseInt($("#dangqian").text()) - 1;
+                    fenye();
+                },
+                shou: function () {
+                    index = 1;
+                    fenye();
+                },
+                mo: function () {
+                    index = parseInt($("#mo").text());
+                    fenye();
+                },
+                ss: function () {
+                    index = 1;
+                    //根据字查询
+                    var sou1 = $("#sou").val();
+                    if (!isNaN(sou1)) {
+                        var num = sou1
+                        /* alert("都是数字");*/
+                    } else {
+                        var sou = $.trim(sou1);
+                        /* alert("不全是数字！");*/
+                    }
+                    $.ajax({
+                        url: "ordercontrol",
+                        data: {
+                            "pageIndex": index,
+                            "orderId": num,
+                            "orderNum": sou || num,
+                            "price": num,
+                            "destination": sou,
+                            "status": sou,
+                            "city":sou,
+                            "itemname":sou,
+                            "roomnum":num,
+                            "ispayment":sou
+                        },
 
-           })
-       }
-       $.ajax({
-           url:"ordercontrol",
-           data:{pageIndex:1},
-           type:"post",
-           dataType:"json",
-           success:function(data){
-               vuee.page=data;
-           }
-       })
-   });
+                        type: "post",
+                        dataType: "json",
+                        success: function (data) {
+                            vuee.page = data;
+                               var checkArry = document.getElementsByName("checkbox");
+                               for (var i = 0; i < checkArry.length; i++) {
+                                   checkArry[i].checked = false;
+                               }
+                        }
+
+                    })
+                }
+            }
+        })
+
+        //分页
+        function fenye() {
+            $.ajax({
+                url: "ordercontrol",
+                data: {pageIndex: index},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    vuee.page = data;
+                }
+
+            })
+        }
+
+        $.ajax({
+            url: "ordercontrol",
+            data: {pageIndex: 1},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                vuee.page = data;
+            }
+        })
+    });
 </script>
 
 </body>
