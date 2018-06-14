@@ -4,12 +4,10 @@
 
 <mapper namespace="com.example.travelms.dao.AdminDao">
     <select id="selectAdmin"  resultType="Admin" >
-        SELECT * FROM admin
-        <where>
-            <if test="id!=null">and id=#{id}</if>
-            <if test="name!=null and name!=''"> and name=#{name}</if>
-            <if test="pwd!=null and pwd!=''"> and pwd=#{pwd}</if>
-        </where>
+        SELECT * FROM admin where  name=#{name} and pwd=#{pwd}
     </select>
 
+    <update id="updateAdmin" >
+        update admin set pwd=#{pwd} where name=#{name}
+    </update>
 </mapper>

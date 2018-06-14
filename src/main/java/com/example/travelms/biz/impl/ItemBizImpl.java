@@ -25,6 +25,21 @@ public class ItemBizImpl implements ItemBiz {
     }
 
     @Override
+    public Boolean updateItem(Item item) {
+        if(itemDao.updateItem(item)>0){
+            return  true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public Item getItem(Integer itemId) {
+
+        return itemDao.getItem(itemId);
+    }
+
+    @Override
     public Boolean insertItem(Item item) {
         if(itemDao.insertItem(item)>0){
             return  true;

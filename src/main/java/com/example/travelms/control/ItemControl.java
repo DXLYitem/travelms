@@ -22,7 +22,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -64,6 +67,13 @@ public class ItemControl {
                 pageItem.getList().get(i).setDate(dateString);
             }
         }
+        if(pageItem.getList().size()>0){
+            for (int i=0;i<pageItem.getList().size();i++){
+                String dateStrings= formatter.format(pageItem.getList().get(i).getEndTime());
+                pageItem.getList().get(i).setEndDate(dateStrings);
+            }
+        }
+
         return pageItem;
     }
 
@@ -71,8 +81,29 @@ public class ItemControl {
 
 
     @RequestMapping("updateItem")
-    public String update(){
-        System.out.println(111);
+    public String update(Integer itemId,Model model){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Item i=itemBiz.getItem(itemId);
+        Date time=i.getStartTime();
+        String date=formatter.format(time);
+        i.setDate(date);
+
+        model.addAttribute("ite",i);
+
+        // 地区
+        model.addAttribute("cou",countryBiz.listCountry(null));
+        //地域
+        model.addAttribute("conList",ContinentBiz.listContinent());
+        //偏好
+        model.addAttribute("hobbyList",hobbyService.listHobby());
+        //旅行主题
+        model.addAttribute("travelList",travelService.listTravel());
+        //交通工具
+        model.addAttribute("trafficList",trafficService.listTraffic());
+        //旅行方式
+        model.addAttribute("styleList",styleService.listStyle());
+        //酒店品牌
+        model.addAttribute("brandList",brandService.listBrand());
         return  "data_management_look";
     }
 
@@ -95,7 +126,7 @@ public class ItemControl {
     }
 
     @RequestMapping(value = "insertItem", method = RequestMethod.POST)
-    public String  insertItem(Model model, HttpSession session,Item item, @RequestParam("picFile") MultipartFile picFile) throws FileNotFoundException {
+    public String  insertItem(Model model, HttpSession session,Item item, @RequestParam("picFile") MultipartFile picFile) throws FileNotFoundException, ParseException {
         if (!picFile.isEmpty()) {
             String uploadFilename = picFile.getOriginalFilename();
             String ext = FilenameUtils.getExtension(uploadFilename);
@@ -107,7 +138,7 @@ public class ItemControl {
                     || "jpeg".equalsIgnoreCase(ext)
                     || "png".equalsIgnoreCase(ext)
                     || "pneg".equalsIgnoreCase(ext)) {
-                String p="E:\\旅游项目\\travel\\src\\main\\resources\\static\\images\\item\\";
+                String p="E:\\旅游项目\\travel\\Protect1\\src\\main\\resources\\static\\item\\";
                 String filename = "id" + System.currentTimeMillis() + (new Random().nextInt(10000)) + "." + ext;
                 File file = new File(p+filename);
                 BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
@@ -130,12 +161,20 @@ public class ItemControl {
                 return "Warning_management_add";
             }
         }
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Date dates=null;
+        if(item.getDate()!=null){
+            dates=new Date();
+            dates=sdf.parse(item.getDate());
+            item.setStartTime(dates);
+        }
+        String d=item.getPlayTime();
+        item=substring(d,item);
         if(itemBiz.insertItem(item)) {
             return "redirect:item";
         }else {
             return "Warning_management_add";
         }
-
     }
 
     //ajax
@@ -163,5 +202,39 @@ public class ItemControl {
 
         }
         return  pageItem;
+    }
+
+    @RequestMapping("updateItem2")
+    public String update(Item it) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=formatter.parse(it.getDate());
+        it.setStartTime(date);
+        String dd=it.getPlayTime();
+        it=substring(dd,it);
+        if( itemBiz.updateItem(it)){
+            return "redirect:item";
+        }else{
+            return "data_management_look";
+        }
+    }
+
+    public Item substring(String str,Item item){
+        String substring=null;
+        if(str.indexOf("天")==5){
+            substring = str.substring(3,5);
+        }else if(str.indexOf("天")==4){
+            substring = str.substring(2,4);
+        }else{
+            substring = str.substring(2,3);
+        }
+        if(substring!=null&&substring!="") {
+            int num = Integer.parseInt(substring);
+            Calendar calendar=Calendar.getInstance();
+            calendar.setTime(item.getStartTime());
+            calendar.add(calendar.DATE,num);
+            Date dates=calendar.getTime();
+            item.setEndTime(dates);
+        }
+        return item;
     }
 }

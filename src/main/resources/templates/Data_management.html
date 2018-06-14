@@ -49,6 +49,7 @@
             <th>游玩时间</th>
             <th>出发城市</th>
             <th>出发时间</th>
+            <th>返回时间</th>
             <th>地域</th>
             <th>地点</th>
             <th>酒店</th>
@@ -65,13 +66,14 @@
             <td>{{info.playTime}}</td>
             <td>{{info.city}}</td>
             <td>{{info.date}}</td>
+            <td>{{info.endDate}}</td>
             <td>{{info.continentName}}</td>
             <td>{{info.countryName}}</td>
             <td>{{info.brandName}}</td>
             <td class="td-manage">
-                <a title="修改" href="javascript:;" onclick="data_management_look('查看','updateItem','4','','510')"
-                   class="ml-5" style="text-decoration:none">
-                    <i class="layui-icon">&#xe642;</i>
+               <!-- <a title="修改" href="javascript:;" onclick="data_management_look('查看','updateItem','4','','510')"-->
+                <a title="修改"   class="ml-5" style="text-decoration:none">
+                    <i class="layui-icon"  v-on:click="xiugai(info.itemId)">&#xe642;</i>
                 </a>
                 <a title="删除"  onclick="delet(this)" style="text-decoration:none">
                     <i class="layui-icon">&#xe640;</i>
@@ -97,6 +99,8 @@
 </div>
 </div>
 <script>
+
+
     layui.use(['element','laypage','layer','form'], function(){
         $ = layui.jquery;//jquery
         lement = layui.element();//面包导航
@@ -241,6 +245,9 @@
                             }
                         }
                     })
+                },
+                xiugai:function (e) {
+                    data_management_look('项目修改','updateItem?itemId='+e,'4','','510');
                 }
             }
         })

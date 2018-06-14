@@ -113,8 +113,8 @@
                                     </dd>
                                 </dd>
                                 <dd class="">
-                                    <dd class="">
-                                        <a href="javascript:;" _href="updatePwd.html">
+                                    <dd class="updatePwd">
+                                        <a href="javascript:;" _href_="updatePwd">
                                             <i class="layui-icon"></i><cite>修改密码</cite>
                                         </a>
                                     </dd>
@@ -158,6 +158,11 @@
 
                 $(".order").on("click",function () {
                     var html=$(this).find("a").attr("_href");
+                    $(".layui-show").load(html);
+                });
+
+                $(".updatePwd").on("click",function () {
+                    var html=$(this).find("a").attr("_href_");
                     $(".layui-show").load(html);
                 });
 

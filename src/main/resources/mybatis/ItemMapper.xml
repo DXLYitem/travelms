@@ -41,10 +41,21 @@
         </where>
     </select>
 
+    <select id="getItem" resultMap="itemMap">
+        SELECT ite.*,b.brandName,cou.countryName,con. continentName    FROM item ite
+        LEFT JOIN theme the ON the.themeId=ite.themeId
+        LEFT JOIN  country cou  ON ite.countryId=cou.countryId
+        LEFT JOIN  continent con ON cou.continentId=con.continentId
+        LEFT JOIN brand b ON ite.brandid=b.brandid
+        <where>
+            <if test="itemId!=null">ite.itemId=#{itemId}</if>
+        </where>
+    </select>
+
 
     <insert id="insertItem" parameterType="Item">
-           INSERT INTO item(title,`EXPLAIN`,playTime,price,countryId,brandId,travelId,styleId,trafficId,picpath,startTime)
-            VALUE(#{item.title},#{item.explain},#{item.playTime},#{item.price},#{item.countryId},#{item.brandId},#{item.travelId},#{item.styleId},#{item.trafficId},#{item.picPath},NOW())
+           INSERT INTO item(title,`EXPLAIN`,playTime,city,price,countryId,brandId,travelId,styleId,trafficId,picpath,startTime,endTime)
+            VALUE(#{item.title},#{item.explain},#{item.playTime},#{item.city},#{item.price},#{item.countryId},#{item.brandId},#{item.travelId},#{item.styleId},#{item.trafficId},#{item.picPath},#{item.startTime},#{item.endTime})
     </insert>
 
 
@@ -57,4 +68,22 @@
             </foreach>
         </where>
     </delete>
+
+    <update id="updateItem" parameterType="Integer">
+        update  item
+              <set>title=#{item.title},
+              playTime=#{item.playTime},
+              price=#{item.price},
+              countryId=#{item.countryId},
+              brandId=#{item.brandId},
+              travelId=#{item.travelId},
+              styleId=#{item.styleId},
+              trafficId=#{item.trafficId},
+              startTime=#{item.startTime},
+              endTime=#{item.endTime},</set>
+
+         <where>
+             itemId=#{item.itemId}
+         </where>
+    </update>
 </mapper>

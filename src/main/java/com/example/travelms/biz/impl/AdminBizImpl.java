@@ -18,4 +18,14 @@ public class AdminBizImpl implements AdminBiz {
 
         return adminDao.selectAdmin(admin);
     }
+
+    @Override
+    public Boolean updateAdmin(String name,String pwd) {
+        if(adminDao.updateAdmin(name,pwd)>0){
+            return  true;
+        }else {
+            return false;
+        }
+
+    }
 }

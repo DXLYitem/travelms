@@ -12,4 +12,10 @@ public interface ItemBiz {
     public Boolean insertItem(Item item);
 
     public Boolean deleteItem(Integer [] itemId);
+
+    public Item getItem(Integer itemId);
+
+    public Boolean updateItem(@Param("item")Item item);
+
+
 }

@@ -24,17 +24,32 @@ public class LoginControl {
 
     @RequestMapping("doLogin")
     public String doLogin(HttpSession session, Admin admin){
-        if(admin.getName()!=null && admin.getPwd()!=null){
+        if((admin.getName()!=null || admin.getName()!="") && (admin.getPwd()!=null || admin.getPwd()!="")){
             Admin a=adminBiz.getAdmin(admin);
             if(a!=null){
                 session.setAttribute("admin",a);
                 return  "index";
-            }else{
-
             }
         }
         return "redirect:login";
     }
+
+    @RequestMapping("updateAdmin")
+    @ResponseBody
+    public String updateAdmin(String name,String pwd1,String pwd){
+        if(!pwd1.equals(pwd)){
+            return "false";
+        }
+        if(adminBiz.updateAdmin(name,pwd)){
+            return "true";
+        }else{
+            return "false";
+        }
+
+
+    }
+
+
 
     @RequestMapping("About_us")
     public String about(){
@@ -66,6 +81,11 @@ public class LoginControl {
     @RequestMapping("Hotel_management")
     public String hotel_management(){
         return "Hotel_management";
+    }
+
+    @RequestMapping("updatePwd")
+    public String updatePwd(){
+        return "updatePwd";
     }
 
 }

@@ -14,4 +14,8 @@ public interface ItemDao {
     public Integer insertItem(@Param("item")Item item);
 
     public Integer deleteItem(Integer [] itemId);
+
+    public Item getItem(@Param("itemId") Integer itemId);
+
+    public Integer updateItem(@Param("item")Item item);
 }

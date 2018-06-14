@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     
     <head>
         <meta charset="utf-8">
@@ -12,74 +12,71 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
     </head>
     
     <body>
         <div class="x-body" align="center" style="margin-top: 15%;">
-            <form class="layui-form layui-form-pane">
+            <form  class="layui-form layui-form-pane">
               <div class="layui-form-item" style="width: 30%;">
-                    <label for="L_title" class="layui-form-label">
+                    <label  class="layui-form-label">
                         用户名
                     </label>
                 <div class="layui-input-block">
-                  <input type="text" id="L_title" name="title" required lay-verify="title" value="" 
-                        autocomplete="off" class="layui-input">
+                  <input type="text"   required lay-verify="title" id="name"
+                        autocomplete="off" class="layui-input" th:value="${session.admin.name}" name="name">
                 </div>
                 </div>
                 <div class="layui-form-item" style="width: 30%;">
-                    <label for="L_title" class="layui-form-label">
+                    <label  class="layui-form-label">
                         新密码
                     </label>
                 <div class="layui-input-block">
-                  <input type="text" id="L_title" name="title" required lay-verify="title" value="" 
-                        autocomplete="off" class="layui-input">
+                  <input type="text"   required lay-verify="title" id="pwd1"
+                        autocomplete="off" class="layui-input" name="pwd1">
                 </div>
                 </div>
                 <div class="layui-form-item" style="width: 30%;">
-                    <label for="L_title" class="layui-form-label">
+                    <label  class="layui-form-label">
                         确认密码
                     </label>
                 <div class="layui-input-block">
-                  <input type="text" id="L_title" name="title" required lay-verify="title" value="" 
-                        autocomplete="off" class="layui-input">
+                  <input type="text"  required lay-verify="title" id="pwd"
+                        autocomplete="off" class="layui-input" name="pwd">
                 </div>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn" lay-filter="add" lay-submit>
-                        保存
-                    </button>
-                    <button class="layui-btn">
-                        取消
-                    </button>
+                    <input class="layui-btn"  onclick="update()" value="保存" style="width: 100px"/>
+                    <input class="layui-btn" value="取消" style="width: 100px"/>
                 </div>
           </form>
     </div>
-    <script src="./lib/layui/layui.js" charset="utf-8">
+    <script src="../static/lib/layui/layui.js" charset="utf-8">
         </script>
-    <script src="./js/x-layui.js" charset="utf-8">
+    <script src="../static/js/x-layui.js" charset="utf-8">
         </script>
     <script>
-            layui.use(['form','layer','layedit'], function(){
+          /*  layui.use(['form','layer','layedit'], function(){
                 $ = layui.jquery;
               var form = layui.form()
               ,layer = layui.layer
               ,layedit = layui.layedit;
+*/
 
-
-                layedit.set({
+               /* layedit.set({
                   uploadImage: {
                     url: "./upimg.json" //接口url
                     ,type: 'post' //默认post
                   }
                 })
-  
+  */
             //创建一个编辑器
-            editIndex = layedit.build('L_content');
+          //  editIndex = layedit.build('L_content');
             
               
 
-              //监听提交
+             /* //监听提交
               form.on('submit(add)', function(data){
                 console.log(data);
                 layer.alert("保存成功", {icon: 6},function () {
@@ -89,10 +86,31 @@
                     parent.layer.close(index);
                 });
                 return false;
-              });
+              });*/
               
               
-            });
+          //  });
+
+            function update() {
+                var name=$("#name").val();
+                var pwd1=$("#pwd1").val();
+                var pwd=$("#pwd").val();
+                alert(name)
+                alert(pwd1)
+                alert(pwd)
+
+                $.ajax({
+                    url:"updateAdmin",
+                    data:{"name":name,"pwd1":pwd1,"pwd":pwd},
+                    type:"post",
+                    dataType:"text",
+                    success:function (data) {
+                        alert(data)
+                    }
+                })
+            }
+
+
         </script>
     <script>
         var _hmt = _hmt || [];

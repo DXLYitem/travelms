@@ -22,6 +22,9 @@ public class Item implements Serializable {
     private Double price;
     //出发时间
     private Date startTime;
+
+    //返回时间
+    private  Date endTime;
     //出发城市
     private String city;
     //起价说明
@@ -48,6 +51,26 @@ public class Item implements Serializable {
     //地域名
     private  String continentName;
 
+    private  String date;
+
+    private String endDate;
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     public Integer getBrandId() {
         return brandId;
     }
@@ -64,7 +87,7 @@ public class Item implements Serializable {
         this.picPath = picPath;
     }
 
-    private  String date;
+
 
     public String getDate() {
         return date;
