@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            酒店管理-修改
+        </title>
+        <style>
+            .add{color: red;font-size: 10px;}
+        </style>
+
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+        <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="../static/js/vue.js"></script>
+        <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+        <script src="../static/js/x-layui.js" charset="utf-8"></script>
+    </head>
+    
+    <body>
+        <div class="x-body">
+            <form class="layui-form layui-form-pane">
+            <!--
+            <form class="layui-form layui-form-pane" th:action="@{updateContinen2}" th:method="POST">
+-->
+                <div class="layui-form-item">
+                    <label for="username" class="layui-form-label">
+                        编号
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="hotelId" required lay-verify="required"
+                        autocomplete="off" th:value="${hotelId}" disabled="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">酒店名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="hotelName" class="layui-input" maxlength="40" th:value="${hotelName}">
+                        <span class="hotelName"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">星级</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="star" class="layui-input" maxlength="15" th:value="${star}">
+                        <span class="star"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">房型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="roomType" class="layui-input" maxlength="20" th:value="${roomType}">
+                        <span class="roomType"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="address" class="layui-input" maxlength="45" th:value="${address}">
+                        <span class="address"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">地区名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="countryName" required lay-verify="required"
+                               autocomplete="off" th:value="${countryName}" disabled="" class="layui-input">
+                    </div>
+
+                </div>
+                <input type="submit" class="layui-btn" value="提交" id="submit">
+            </form>
+        </div>
+    </body>
+    <script>
+        $(function () {
+
+            $("#submit").on('click', function () {
+                var hotelId=$('[ name="hotelId"]').val();
+                var hotelName = $("[name='hotelName']").val();
+                var star = $('[name="star"]').val();
+                var roomType = $('[name="roomType"]').val();
+                var address = $('[name="address"]').val();
+                var countryName = $('[name="countryName"]').val();
+                if (hotelName == "" || hotelName == null) {
+                    $('.hotelName').text('*请输入酒店名称！').addClass('add');
+                    return false;
+                }else{
+                    $('.hotelName').hide();
+                }
+                if (star == "" || star == null) {
+                    $('.star').text('*请输入星级！').addClass('add');
+                    return false;
+                }else {
+                    $('.star').hide();
+                }
+                if (roomType == "" || roomType == null) {
+                    $('.roomType').text('*请输入房屋类型！').addClass('add');
+                    return false;
+                }else {
+                    $('.roomType').hide();
+                }
+                if (address == "" || address == null) {
+                    $('.address').text('*请输入地址！').addClass('add');
+                    return false;
+                }else {
+                    $('.address').hide();
+                }
+
+                $.ajax({
+                    url: "updateHotel",
+                    type: "post",
+                    data: {"hotelId": hotelId,"hotelName": hotelName, "star": star,"roomType": roomType,"address": address,"countryName":countryName},
+/*
+                    data: {"hotelId": hotelId,"hotelName": hotelName, "star": star,"roomType": roomType,"address": address},
+*/
+
+                    dataType: "json",
+                    success: function (data) {
+                        alert('修改成功！');
+                    },
+                    error: function (data) {
+                        x_admin_close();
+                    }
+                })
+            })
+        })
+            </script>
+
+</html>
