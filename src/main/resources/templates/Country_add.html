@@ -15,6 +15,13 @@
     <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
     <script src="../static/js/x-layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+    <style>
+        .red{
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div class="x-body">
@@ -27,23 +34,53 @@
                     <option th:value="0">请选择</option>
                     <option  th:each="con : ${conList}" th:value="${con.continentId}"><span th:text="${con.continentName}">欧洲</span></option>
                 </select>
+                <span class="red">*请选择地域</span>
             </div>
         </div>
         <div class="layui-form-item">
             <label  class="layui-form-label">
                 地区</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" placeholder="如（希腊）" name="countryName">
+                <input type="text" class="layui-input" placeholder="如（希腊）" name="countryName" maxlength="20">
+                <span class="red">*只能输入中文 如（希腊）</span>
             </div>
         </div>
         <div class="layui-form-item">
             <label for="L_sign" class="layui-form-label">
             </label>
-            <p onclick="x_admin_close()"><input type="submit" id="submit"  value="提交"/></p>
+            <p ><input type="submit" id="submit"  value="提交" onclick="return x_admin_close1()"/></p>
         </div>
     </form>
 </div>
 <script>
+    var cun=/^[\u4E00-\u9FA5]{1,}$/;
+    function x_admin_close1(){
+        var con=$("#continent").val();
+        if(con==0){
+            $("#continent").next().show();
+            return false;
+        }
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+    $(function () {
+        $("#continent").on("change",function () {
+            var con=$("#continent").val();
+            if(con!=0){
+                $("#continent").next().hide();
+            }
+        });
+        $("[name='countryName']").on("blur",function () {
+            var coun=$(this).val();
+            if(!cun.test(coun)){
+                $(this).focus();
+                $(this).next().show();
+                return;
+            }
+            $(this).next().hide();
+        })
+    })
+
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
