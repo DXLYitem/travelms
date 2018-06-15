@@ -28,4 +28,18 @@ public class AdminBizImpl implements AdminBiz {
         }
 
     }
+
+    @Override
+    public Admin selectAdminById(Integer id) {
+        return adminDao.selectAdminById(id);
+    }
+
+    @Override
+    public Boolean update(Admin admin) {
+        if(adminDao.update(admin)>0){
+            return  true;
+        }else {
+            return false;
+        }
+    }
 }

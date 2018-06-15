@@ -17,4 +17,8 @@ public interface UserDao {
    * @return
    */
   int userCount(@Param("user")User user);
+
+  public Integer updateScores(@Param("scores") Integer scores,@Param("phone")String  phone);
+
+
 }

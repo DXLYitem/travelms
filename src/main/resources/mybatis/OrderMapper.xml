@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.travelms.dao.OrderDao">
+<resultMap id="orderMap" type="com.example.travelms.entity.Order" autoMapping="true">
+    <result column="endTime" property="endTime"></result>
+</resultMap>
 
 <select id="selectOrder" resultType="Order">
     SELECT * FROM `order`
     <where>
-        <if test="order.orderId!=null"> or orderId LIKE CONCAT ('%',#{order.orderId},'%')</if>
+
         <if test="order.orderNum !=null"> or orderNum LIKE CONCAT ('%',#{order.orderNum},'%')</if>
         <if test="order.orderTime!=null"> or orderTime LIKE CONCAT ('%',#{order.orderTime},'%')</if>
         <if test="order.price !=null"> or price LIKE CONCAT ('%',#{order.price},'%')</if>
@@ -23,7 +26,7 @@
   <select id="orderCount" resultType="Integer">
      SELECT COUNT(*) FROM  `order`
       <where>
-          <if test="order.orderId!=null"> or orderId LIKE CONCAT ('%',#{order.orderId},'%')</if>
+
           <if test="order.orderNum !=null"> or orderNum LIKE CONCAT ('%',#{order.orderNum},'%')</if>
           <if test="order.orderTime!=null"> or orderTime LIKE CONCAT ('%',#{order.orderTime},'%')</if>
           <if test="order.price !=null"> or price LIKE CONCAT ('%',#{order.price},'%')</if>
@@ -36,4 +39,46 @@
       </where>
       ORDER BY orderTime DESC
   </select>
+
+    <select id="order" resultType="Order">
+        SELECT  * FROM  `order`
+        ORDER BY orderTime DESC
+         LIMIT #{pageIndex},#{pageSize}
+    </select>
+
+    <update id="updateOrder" >
+        UPDATE 	`order` set ispayment=#{ispayment} where customizeid=#{customizeid}
+    </update>
+
+    <select id="getOrder" resultMap="orderMap" >
+        SELECT i.endTime,o.* FROM `order`o INNER JOIN  item i
+        ON o.itemId=i.itemId WHERE o.itemId=#{order.itemid}
+
+    </select>
+
+    <select id="selectOrder2" resultType="Order" >
+        SELECT * FROM `order`
+        <where>
+            <if test="orderId!=null">orderId=#{orderId}</if>
+        </where>
+
+    </select>
+
+    <update id="update" >
+         UPDATE 	`order`
+          <set>
+              <if test="order.price!=null">price=#{order.price},</if>
+              <if test="order.city!=null and order.city!=''">city=#{order.city},</if>
+              <if test="order.itemname!=null and order.itemname!=''">itemname=#{order.itemname},</if>
+              <if test="order.roomnum!=null ">roomnum=#{order.roomnum},</if>
+              <if test="order.status!=null and order.status!=''">status=#{order.status},</if>
+              <if test="order.ispayment!=null and order.ispayment!=''">ispayment=#{order.ispayment},</if>
+          </set>
+          where orderId=#{order.orderId}
+    </update>
+
+    <update id="updateStatus">
+        update `order` set status="已消费" where status=#{status} and itemid=#{itemid}
+
+    </update>
 </mapper>

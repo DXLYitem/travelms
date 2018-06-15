@@ -30,4 +30,10 @@ public class UserBizImpl implements UserBiz{
         page.setList(userDao.selectUser(user,(pageIndex-1)*pageSize,pageSize));
         return page;
     }
+
+    @Override
+    public Integer updateScores(Integer scores, String phone) {
+        return userDao.updateScores(scores,phone);
+    }
+
 }

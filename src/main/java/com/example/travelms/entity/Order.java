@@ -35,7 +35,16 @@ public class Order implements Serializable {
 
     private String time;
 
-   /* private Customize customize;*/
+    private Date endTime;
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+    /* private Customize customize;*/
 
     private Integer pageNo;
 
@@ -45,6 +54,7 @@ public class Order implements Serializable {
 
     private String ispayment;
     private String date;
+    private String pricem;
 
     public String getDate() {
         return date;
@@ -196,6 +206,14 @@ public class Order implements Serializable {
 
     public void setIspayment(String ispayment) {
         this.ispayment = ispayment;
+    }
+
+    public String getPricem() {
+        return pricem;
+    }
+
+    public void setPricem(String pricem) {
+        this.pricem = pricem;
     }
 
     @Override
