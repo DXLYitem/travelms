@@ -29,7 +29,7 @@
                     </a>
                     <ul class="layui-nav" lay-filter="">
                       <li class="layui-nav-item">
-                        <a href="javascript:;" th:text="${session.admin.name}"></a>
+                        <a href="javascript:;" th:text="${session.admin.userName}"></a>
                         <dl class="layui-nav-child"> <!-- 二级菜单 -->
 
                           <dd><a href="login.html">切换帐号</a></dd>
@@ -106,8 +106,8 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <dd class="">
-                                        <a href="javascript:;" _href="My_management_edit.html">
+                                    <dd class="My_management_edit">
+                                        <a href="javascript:;" _href_="My_management_edit">
                                             <i class="layui-icon"></i><cite>个人信息</cite>
                                         </a>
                                     </dd>
@@ -162,6 +162,10 @@
                 });
 
                 $(".updatePwd").on("click",function () {
+                    var html=$(this).find("a").attr("_href_");
+                    $(".layui-show").load(html);
+                });
+                $(".My_management_edit").on("click",function () {
                     var html=$(this).find("a").attr("_href_");
                     $(".layui-show").load(html);
                 });

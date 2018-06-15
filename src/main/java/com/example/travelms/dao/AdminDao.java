@@ -8,4 +8,7 @@ public interface AdminDao {
 
     Integer updateAdmin(@Param("name")String name,@Param("pwd")String pwd);
 
+    Admin selectAdminById(@Param("id")Integer id);
+
+    Integer update(@Param("admin") Admin admin);
 }

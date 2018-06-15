@@ -25,4 +25,8 @@
             <if test="user.scores !=null"> or scores LIKE CONCAT ('%',#{user.scores},'%')</if>
         </where>
     </select>
+
+    <update id="updateScores">
+        UPDATE 	`user` SET scores=scores+#{scores} WHERE phone=#{phone}
+    </update>
 </mapper>

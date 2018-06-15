@@ -10,4 +10,26 @@
     <update id="updateAdmin" >
         update admin set pwd=#{pwd} where name=#{name}
     </update>
+
+    <select id="selectAdminById" resultType="Admin">
+        select * from admin
+        <where>
+            <if test="id!=null">id=#{id}</if>
+        </where>
+    </select>
+
+    <update id="update">
+        update admin
+        <set>
+            name=#{admin.name},
+            userName=#{admin.userName},
+            email=#{admin.email},
+            phone=#{admin.phone},
+            address=#{admin.address},
+            title=#{admin.title},
+        </set>
+        <where>
+            id=#{admin.id}
+        </where>
+    </update>
 </mapper>
