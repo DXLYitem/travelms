@@ -54,4 +54,8 @@
             </foreach>
         </where>
     </delete>
+
+    <select id="listCountry"  resultType="Country"  parameterType="int">
+        SELECT * FROM country
+    </select>
 </mapper>

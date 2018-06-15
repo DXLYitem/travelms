@@ -33,9 +33,8 @@
     <div class="x-body">
         <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
             <span class="x-right" style="line-height:20px">
-<!--
-                <button class="layui-btn layui-btn-danger" onclick="downloadfile();">数据导出</button>
--->
+              <!--  <button class="layui-btn layui-btn-danger" onclick="downloadfile();">数据导出</button>
+                <button class="layui-btn layui-btn-danger" onclick="Importing();">数据导入</button>-->
         <button class="layui-btn" onclick="Warning_management_add('添加地域','insertContinen','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span>
         </xblock>
 
@@ -293,7 +292,10 @@
     });
 
     function downloadfile(){
-        window.location.href="/UserExcelDownloads";
+        window.location.href="UserExcelDownloads";
+    }
+    function Importing() {
+        window.location.href="import";
     }
 </script>
 </body>

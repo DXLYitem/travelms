@@ -2,14 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.travelms.dao.HotelDao">
-    <select id="selectHotel"  resultType="Hotel">
-        SELECT * FROM Hotel
+
+    <resultMap id="hotelMap" type="Hotel">
+        <result column="countryName" property="countryName"></result>
+    </resultMap>
+
+    <select id="selectHotel" resultMap="hotelMap">
+        SELECT * FROM hotel hot INNER JOIN country coun ON coun.countryId=hot.countryId
         <where>
-            <if test="hotel.hotelId != null"> and hotelId=#{hotel.hotelId}</if>
+            <if test="hotel.hotelId !=null"> or hot.hotelId LIKE CONCAT ('%',#{hotel.hotelId},'%')</if>
+            <if test="hotel.hotelName !=null"> or hot.hotelName LIKE CONCAT ('%',#{hotel.hotelName},'%')</if>
+            <if test="hotel.address !=null"> or hot.address LIKE CONCAT ('%',#{hotel.address},'%')</if>
+            <if test="hotel.roomType !=null"> or hot.roomType LIKE CONCAT ('%',#{hotel.roomType},'%')</if>
+            <if test="hotel.breakfast !=null"> or hot.breakfast LIKE CONCAT ('%',#{hotel.breakfast},'%')</if>
+            <if test="hotel.lunch !=null"> or hot.lunch LIKE CONCAT ('%',#{hotel.lunch},'%')</if>
+            <if test="hotel.dinner !=null"> or hot.dinner LIKE CONCAT ('%',#{hotel.dinner},'%')</if>
+            <if test="hotel.star !=null"> or hot.star LIKE CONCAT ('%',#{hotel.star},'%')</if>
+
+            <if test="hotel.countryName !=null"> or coun.countryName LIKE CONCAT ('%',#{hotel.countryName},'%')</if>
+
         </where>
         LIMIT #{pageIndex},#{pageSize}
     </select>
     <select id="count"  resultType="Integer" >
-        SELECT COUNT(*)    FROM hotel
+        SELECT COUNT(*) FROM hotel hot INNER JOIN country coun ON coun.countryId=hot.countryId
+        <where>
+            <if test="hotel.hotelId !=null"> or hot.hotelId LIKE CONCAT ('%',#{hotel.hotelId},'%')</if>
+            <if test="hotel.hotelName !=null"> or hot.hotelName LIKE CONCAT ('%',#{hotel.hotelName},'%')</if>
+            <if test="hotel.address !=null"> or hot.address LIKE CONCAT ('%',#{hotel.address},'%')</if>
+            <if test="hotel.roomType !=null"> or hot.roomType LIKE CONCAT ('%',#{hotel.roomType},'%')</if>
+            <if test="hotel.breakfast !=null"> or hot.breakfast LIKE CONCAT ('%',#{hotel.breakfast},'%')</if>
+            <if test="hotel.lunch !=null"> or hot.lunch LIKE CONCAT ('%',#{hotel.lunch},'%')</if>
+            <if test="hotel.dinner !=null"> or hot.dinner LIKE CONCAT ('%',#{hotel.dinner},'%')</if>
+            <if test="hotel.star !=null"> or hot.star LIKE CONCAT ('%',#{hotel.star},'%')</if>
+
+            <if test="hotel.countryName !=null"> or coun.countryName LIKE CONCAT ('%',#{hotel.countryName},'%')</if>
+
+        </where>
     </select>
+
+    <!--根据Id删除酒店-->
+    <delete id="deleteHotel" parameterType="Integer[]">
+        delete from hotel
+        <where>
+            hotelId
+            <foreach collection="array" item="hotelId" open="in (" close=")" separator=",">
+                #{hotelId}
+            </foreach>
+        </where>
+    </delete>
+
+    <insert id="insertHotel" parameterType="Hotel">
+        INSERT INTO hotel(hotelName,picPath,star,address,countryId,roomType,breakfast,lunch,dinner,hotelDesc)
+        VALUE(#{hotel.hotelName},#{hotel.picPath},#{hotel.star},#{hotel.address},#{hotel.countryId},
+              #{hotel.roomType},#{hotel.breakfast},#{hotel.lunch},#{hotel.dinner},#{hotel.hotelDesc})
+</insert>
+
+    <update id="updateByHotel">
+        UPDATE hotel
+        <set>
+            <if test="hotel.hotelName!=null">hotelName=#{hotel.hotelName},</if>
+            <if test="hotel.star!=null">star=#{hotel.star},</if>
+            <if test="hotel.address!=null">address=#{hotel.address},</if>
+            <if test="hotel.roomType!=null">roomType=#{hotel.roomType}</if>
+            <if test="hotel.countryId!=null">countryId=#{hotel.countryId}</if>
+        </set>
+        WHERE hotelId=#{hotel.hotelId}
+    </update>
 </mapper>

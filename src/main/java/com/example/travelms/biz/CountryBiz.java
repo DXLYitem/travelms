@@ -17,5 +17,7 @@ public interface CountryBiz {
 
     Boolean removeAll(Integer [] countryId);
 
+    List<Country>countryList();
+
 }
 

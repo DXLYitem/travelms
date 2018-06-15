@@ -30,6 +30,9 @@ public class Hotel implements Serializable{
     //酒店描述
     private String hotelDesc;
 
+    //地区名
+   private String countryName;
+
     private List<String> pic;
 
     public Integer getHotelId() {
@@ -136,6 +139,14 @@ public class Hotel implements Serializable{
         this.pic = pic;
     }
 
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
     @Override
     public String toString() {
         return "Hotel{" +
@@ -151,6 +162,7 @@ public class Hotel implements Serializable{
                 ", lunch='" + lunch + '\'' +
                 ", dinner='" + dinner + '\'' +
                 ", hotelDesc='" + hotelDesc + '\'' +
+                ", countryName='" + countryName + '\'' +
                 '}';
     }
 }

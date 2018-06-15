@@ -17,29 +17,23 @@
     <script type="text/javascript" src="../static/js/vue.js"></script>
 </head>
 <body>
-<div class="x-nav">
-            <span class="layui-breadcrumb">
-              <a><cite>首页</cite></a>
-              <a><cite>旅游项目</cite></a>
-            </span>
-    <!-- <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>-->
-</div>
-<form class="layui-form x-center" action="" style="width:500px">
-    <div class="layui-form-pane" style="margin-top: 15px;">
-        <div class="layui-form-item">
-            <div class="layui-input-inline" style="width:400px">
-                <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-input-inline" style="width:40px;">
-                <button style="height: 37px" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+<div id="div">
+    <form class="layui-form x-center" action="" style="width:500px">
+        <div class="layui-form-pane" style="margin-top: 15px;">
+            <div class="layui-form-item">
+                <div class="layui-input-inline" style="width:400px">
+                    <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input" id="sou">
+                </div>
+                <div class="layui-input-inline" style="width:40px;">
+                    <a style="height: 37px;line-height: 37px" class="layui-btn"  lay-submit="" lay-filter="sreach" v-on:click="ss" id="dow"><i class="layui-icon">&#xe615;</i></a>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 <div class="x-body">
     <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px">
-        <button class="layui-btn" onclick="Warning_management_add('添加地区','addCountry','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
-    <div id="div">
+        <button class="layui-btn" onclick="Warning_management_add('添加地区','showInsertHotel','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
+
         <table class="layui-table">
             <thead>
             <tr class="center">
@@ -49,26 +43,26 @@
                 <th>星级</th>
                 <th>房型</th>
                 <th>地址</th>
-                <th>酒店介绍</th>
+                <th>地区名</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody id="x-link">
             <tr v-for="hotels in page.list">
-                <td width="50"><input type="checkbox"  name="checkbox" /></td>
+                <td width="50" >
+                    <input type="checkbox" name="checkbox" v-bind:value="hotels.hotelId"/>
+                </td>
                 <td class="hotelId">{{hotels.hotelId}}</td>
                 <td>{{hotels.hotelName}}</td>
                 <td>{{hotels.star}}</td>
                 <td>{{hotels.roomType}}</td>
                 <td>{{hotels.address}}</td>
-                <td>{{hotels.hotelDesc}}</td>
+                <td>{{hotels.countryName}}</td>
                 <td class="td-manage">
-                    <a title="处理" href="javascript:;" onclick="data_management_look('查看','data_management_look.html','4','','510')"
-                       class="ml-5" style="text-decoration:none">
-                        <i class="layui-icon">&#xe642;</i>
+                    <a title="修改" href="javascript:;" onclick="showUpdate(this)" class="ml-5" style="text-decoration:none">
+                        <i class="layui-icon" id="cid">&#xe642;</i>
                     </a>
-                    <a id="del" title="删除" href="javascript:;" v-on:click="del(country.countryId,$event)"
-                       style="text-decoration:none">
+                    <a title="删除" onclick="delet (this)" style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                 </td>
@@ -98,6 +92,21 @@
         layer = layui.layer;//弹出层
         form = layui.form();//弹出层
     })
+
+    function showUpdate(e) {
+        var id=$(e).parent().parent().find("td").eq(1).text();
+        var name=$(e).parent().parent().find("td").eq(2).text();
+        var star=$(e).parent().parent().find("td").eq(3).text();
+        var roomType=$(e).parent().parent().find("td").eq(4).text();
+        var address=$(e).parent().parent().find("td").eq(5).text();
+        var countryName=$(e).parent().parent().find("td").eq(6).text();
+        data_management_look('查看','showUpdateHotel?hotelId='+id+'&'+'hotelName='+name+'&'+'star='+star+'&'+'roomType='+roomType+'&'+'address='+address+'&'+'countryName='+countryName,'4','','510');
+/*
+        data_management_look('查看','showUpdateHotel?hotelId='+id+'&'+'hotelName='+name+'&'+'star='+star+'&'+'roomType='+roomType+'&'+'address='+address,'4','','510');
+*/
+
+    }
+
     /*用户-添加*/
     function Warning_management_add(title,url,w,h){
         x_admin_show(title,url,w,h);
@@ -106,6 +115,103 @@
     function data_management_look (title,url,id,w,h) {
         x_admin_show(title,url,w,h);
     }
+
+    //批量删除提交
+    function delAll () {
+        var checkArry = document.getElementsByName("checkbox");
+        var count=0;
+        var checked = [];
+
+        for (var i = 0; i < checkArry.length; i++) {
+            if(checkArry[i].checked == true){
+                count++;
+                //选中的操作
+                $('input:checkbox:checked').each(function() {
+                    checked.push($(this).val());
+                });
+                break;
+            }
+        }
+        if(count==0){
+            //未选中的操作
+            layer.msg('请选择要删除的项目', {icon: 0});
+        }else{
+            layer.confirm('确认要删除吗？',function(index){
+                //捉到所有被选中的，发异步进行删除
+                $.ajax({
+                    url:"deleteHotel",
+                    traditional: true,
+                    data:{"hotelId":checked},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        if(data!=null){
+                            layer.msg('删除成功', {icon: 1});
+                            vuee.page=data;
+                            var checkArry = document.getElementsByName("checkbox");
+                            for (var i = 0; i < checkArry.length; i++) {
+                                checkArry[i].checked = false;
+                            }
+
+                        }else{
+                            layer.msg('删除失败', {icon: 0});
+                        }
+
+                    }
+                });
+
+            });
+        }
+    }
+
+    // 删除
+    function delet(e) {
+        var checked = [];
+        var a= $(e).parent().parent().find("td").eq(1).text();
+        checked.push(a);
+        layer.confirm('确认要删除吗？',function(index){
+            //捉到所有被选中的，发异步进行删除
+            $.ajax({
+                url:"deleteHotel",
+                traditional: true,
+                data:{"hotelId":checked},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    if(data!=null){
+                        layer.msg('删除成功', {icon: 1});
+                        vuee.page=data;
+                        console.log(data)
+                        var checkArry = document.getElementsByName("checkbox");
+                        for (var i = 0; i < checkArry.length; i++) {
+                            checkArry[i].checked = false;
+                        }
+
+                    }else{
+                        layer.msg('删除失败', {icon: 0});
+                    }
+
+                }
+            });
+
+        });
+
+    }
+    //全选
+    var zt=false;
+    function checkd(){
+        if(zt==true){
+            zt=false;
+        }else{
+            zt=true;
+        }
+        var a = document.getElementsByTagName("input");
+        for (var i=0; i<a.length; i++)
+            if (a[i].type == "checkbox")
+                a[i].checked = zt;
+    }
+
+    var vuee;
     $(document).ready(function(){
         var index;
         var e=new Vue({
@@ -131,20 +237,31 @@
                     index=parseInt($("#mo").text());
                     fenye();
                 },
-                del:function (index,event) {
-                    layer.confirm('确认要删除吗？',function(i){
-                        $.ajax({
-                            url: "delCountry",
-                            data: {"countryId": index},
-                            type: "post",
-                            dataType: "json",
-                            success: function (data) {
-                                /*  alert($(event.currentTarget).text());
-                                  $(event.currentTarget).hide();*/
-                                layer.msg('已删除!',{icon:1,time:1000});
+                ss:function () {
+                    index=1;
+                    //根据字查询
+                    var sou1=$("#sou").val();
+                    if(!isNaN(sou1)){
+                        var num=sou1
+                        /* alert("都是数字");*/
+                    }else{
+                        var sou = $.trim(sou1);
+                        /* alert("不全是数字！");*/
+                    }
+                    $.ajax({
+                        url: "hotel",
+                        data: {"pageIndex": index, "hotelId": num, "hotelName": sou,"roomType": sou, "address": sou, "countryName": sou},
+                        type: "post",
+                        dataType: "json",
+                        success: function (data) {
+                            vuee.page = data;
+                            var checkArry = document.getElementsByName("checkbox");
+                            for (var i = 0; i < checkArry.length; i++) {
+                                checkArry[i].checked = false;
                             }
-                        })
-                    });
+                        }
+
+                    })
                 }
             }
         })
@@ -156,7 +273,7 @@
                 type:"post",
                 dataType:"json",
                 success:function(data){
-                    e.page=data;
+                    vuee.page=data;
                 }
             })
         }
@@ -166,7 +283,7 @@
             type:"post",
             dataType:"json",
             success:function(data){
-                e.page=data;
+                vuee.page=data;
             }
 
         })

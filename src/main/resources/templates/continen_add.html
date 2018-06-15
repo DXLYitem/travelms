@@ -44,6 +44,20 @@
             </form>
         </div>
         <script>
+            var continenNameze=/^[\u4E00-\u9FA5]{1,}$/;
+            $(function () {
+                $("[name='continenName']").on("blur",function () {
+                    var continenName= $("[name='continenName']").val();
+                    if(!continenNameze.test(continenName)){
+                        $(this).focus();
+                        $(this).next().show();
+                        return;
+                    }
+                    $(this).next().hide();
+                })
+            })
+
+
             $(function () {
                 $("#submit").on('click',function () {
                     var continenName=$('[name="continenName"]').val();
@@ -95,5 +109,6 @@
         })();
         </script>
     </body>
+<script src="../static/js/select.js"></script>
 
 </html>

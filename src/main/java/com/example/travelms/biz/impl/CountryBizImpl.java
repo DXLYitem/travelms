@@ -3,6 +3,7 @@ package com.example.travelms.biz.impl;
 import com.example.travelms.biz.CountryBiz;
 import com.example.travelms.dao.CountryDao;
 import com.example.travelms.entity.Country;
+import com.example.travelms.entity.Style;
 import com.example.travelms.util.Pages;
 import org.springframework.stereotype.Service;
 import com.example.travelms.util.RedisUtil;
@@ -76,6 +77,19 @@ public class CountryBizImpl implements CountryBiz{
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public List<Country> countryList() {
+        String styKey="couKey";
+        if(redisUtil.exists(styKey)){
+            Object o = redisUtil.lRange(styKey, 0, redisUtil.length(styKey)).get(0);
+            return (List<Country>) o;
+        }else{
+            List<Country> list=countryDao.listCountry();
+            redisUtil.lPush(styKey,list);
+            return list;
         }
     }
 
