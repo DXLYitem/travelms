@@ -15,6 +15,13 @@
     <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
     <script src="../static/js/x-layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+    <style>
+        .red{
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div class="x-body">
@@ -23,7 +30,8 @@
             <label  class="layui-form-label">
                 酒店名称</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="hotelName">
+                <input type="text" class="layui-input" name="hotelName" maxlength="25">
+                <span class="red">*只能以中文或字母开头并只能写中文或之母且不能为空</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,7 +62,8 @@
             <label  class="layui-form-label">
                 酒店星级</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input"  name="star">
+                <input type="text" class="layui-input"  name="star" placeholder="如 ★★★">
+                <span class="red">*只能输入★</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -78,7 +87,7 @@
             <label  class="layui-form-label">
                 房型</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="roomType">
+                <input type="text" class="layui-input" name="roomType" readonly th:value="豪华双人间">
             </div>
         </div>
         <div class="layui-form-item">
@@ -86,6 +95,7 @@
                 早餐</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" name="breakfast">
+                <span class="red">*不能为空</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -93,6 +103,7 @@
                 午餐</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" name="lunch">
+                <span class="red">*不能为空</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -100,6 +111,7 @@
                 晚餐</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" name="dinner">
+                <span class="red">*不能为空</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -110,8 +122,43 @@
                            class="layui-textarea" style="height: 80px;"  ></textarea>
             </div>
         </div>
-        <p onclick="x_admin_close()"><input type="submit" class="layui-btn" value="提交"></p>
+        <p><input type="submit" class="layui-btn" value="提交" onclick=" return x_admin_close1()"></p>
     </form>
 </div>
+<script>
+    var hotelname=/^[\u4E00-\u9FA5]{1,}$/;
+    var xing=/^[\u2605]{1,}$/;
+    $("[name='hotelName']").on("blur",function () {
+        if(!hotelname.test($(this).val())){
+            $(this).focus();
+            $(this).next().show();
+            return;
+        }
+        $(this).next().hide();
+    });
+
+    $("[name='star']").on("blur",function () {
+        if(!xing.test($(this).val())){
+            $(this).focus();
+            $(this).next().show();
+            return;
+        }
+        $(this).next().hide();
+    });
+    function x_admin_close1() {
+        var flag=true;
+        $("input[type='text']").each(function () {
+            if ($(this).val() == "" || $(this).val() == NaN || $(this).val() == undefined || $(this).val() == null) {
+                $(this).focus();
+                $(this).next().show();
+                flag= false;
+            }
+        })
+        if(!flag){
+            return false;
+        }
+    }
+</script>
+
 </body>
 </html>
