@@ -16,4 +16,6 @@ public interface CountryDao {
     int update(@Param("country") Country country);
 
     Integer deleteAll(Integer [] countryId);
+
+    List<Country>listCountry();
 }
