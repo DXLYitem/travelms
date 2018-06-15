@@ -37,7 +37,7 @@
                     <label class="layui-form-label">地域名称</label>
                     <div class="layui-input-inline">
                         <input type="text" name="continenName" class="layui-input" maxlength="5" th:value="${continentName}">
-                        <span class="con" style="color: red;font-size:10px"></span>
+                        <span class="con" style="color: red;font-size:10px;display: none;">请输入正确格式 如（亚洲）</span>
                     </div>
                 </div>
                 <input type="submit" class="layui-btn" value="提交" id="submit">
@@ -89,6 +89,19 @@
 
     </body>
     <script>
+        var continenNameze=/^[\u4E00-\u9FA5]{1,}$/;
+        $(function () {
+            $("[name='continenName']").on("blur",function () {
+                var continenName= $("[name='continenName']").val();
+                if(!continenNameze.test(continenName)){
+                    $(this).focus();
+                    $(this).next().show();
+                    return;
+                }
+                $(this).next().hide();
+            })
+        })
+
         $(function () {
             $("#submit").on('click',function () {
                 var continenName=$('[name="continenName"]').val();
