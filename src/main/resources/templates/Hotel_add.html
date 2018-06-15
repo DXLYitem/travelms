@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>
+        酒店管理-添加
+    </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../static/css/x-admin.css" media="all">
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../static/js/x-layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<div class="x-body">
+    <form action="insertHotel" method="post" id="formsubmit1" enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                酒店名称</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="hotelName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                上传图片</label>
+            <div class="layui-input-inline">
+                <input type="file" class="layui-input" name="picFile">
+            </div>
+            <span th:text="${uploadError}"></span>
+        </div>
+            <div class="layui-form-item">
+            <label  class="layui-form-label">
+                上传图片</label>
+            <div class="layui-input-inline">
+                <input type="file" class="layui-input" name="picFile">
+            </div>
+                <span th:text="${uploadError}"></span>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                上传图片</label>
+            <div class="layui-input-inline">
+                <input type="file" class="layui-input" name="picFile">
+            </div>
+            <span th:text="${uploadError}"></span>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                酒店星级</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input"  name="star">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                酒店地址</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="address">
+            </div>
+        </div>
+         <div class="layui-form-item" >
+           <label  class="layui-form-label">
+               酒店地区</label>
+             <div class="layui-input-inline">
+                 <select id="countryId" style="width: 400px;height: 40px;border: #ebebeb 1px solid;color: #8D8D8D" name="countryId">
+                    <!-- <option th:value="0">请选择</option>-->
+                     <option  th:each="cou : ${country}" th:value="${cou.countryId}"><span th:text="${cou.countryName}">欧洲</span></option>
+                 </select>
+             </div>
+       </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                房型</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="roomType">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                早餐</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="breakfast">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                午餐</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="lunch">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                晚餐</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="dinner">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label  class="layui-form-label">
+                酒店介绍</label>
+            <div class="layui-input-inline">
+                 <textarea placeholder="随便写些什么刷下存在感" id="L_sign" name="hotelDesc" autocomplete="off"
+                           class="layui-textarea" style="height: 80px;"  ></textarea>
+            </div>
+        </div>
+        <p onclick="x_admin_close()"><input type="submit" class="layui-btn" value="提交"></p>
+    </form>
+</div>
+</body>
+</html>
