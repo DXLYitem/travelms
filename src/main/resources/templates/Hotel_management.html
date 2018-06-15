@@ -19,7 +19,7 @@
 <body>
 <div id="div">
     <form class="layui-form x-center" action="" style="width:500px">
-        <div class="layui-form-pane" style="margin-top: 15px;">
+        <div class="layui-form-pane" style="margin-top: 50px;">
             <div class="layui-form-item">
                 <div class="layui-input-inline" style="width:400px">
                     <input type="text" name="username"  placeholder="搜索从这里开始..." autocomplete="off" class="layui-input" id="sou">
@@ -30,14 +30,14 @@
             </div>
         </div>
     </form>
-<div class="x-body">
-    <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px">
+    <div class="x-body">
+        <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><span class="x-right" style="line-height:20px">
         <button class="layui-btn" onclick="Warning_management_add('添加地区','showInsertHotel','600','500')"><i class="layui-icon">&#xe608;</i>添加</button></span></xblock>
 
         <table class="layui-table">
             <thead>
             <tr class="center">
-                <th width="50"><input type="checkbox"  name="a" />全选</th>
+                <th width="50" ><input type="checkbox"  value="0" name="checkbox" onclick="checkd()"/>全选</th>
                 <th>编号</th>
                 <th>酒店名称</th>
                 <th>星级</th>
@@ -101,9 +101,9 @@
         var address=$(e).parent().parent().find("td").eq(5).text();
         var countryName=$(e).parent().parent().find("td").eq(6).text();
         data_management_look('查看','showUpdateHotel?hotelId='+id+'&'+'hotelName='+name+'&'+'star='+star+'&'+'roomType='+roomType+'&'+'address='+address+'&'+'countryName='+countryName,'4','','510');
-/*
-        data_management_look('查看','showUpdateHotel?hotelId='+id+'&'+'hotelName='+name+'&'+'star='+star+'&'+'roomType='+roomType+'&'+'address='+address,'4','','510');
-*/
+        /*
+                data_management_look('查看','showUpdateHotel?hotelId='+id+'&'+'hotelName='+name+'&'+'star='+star+'&'+'roomType='+roomType+'&'+'address='+address,'4','','510');
+        */
 
     }
 
@@ -136,7 +136,7 @@
             //未选中的操作
             layer.msg('请选择要删除的项目', {icon: 0});
         }else{
-            layer.confirm('确认要删除吗？',function(index){
+            layer.confirm('确认要删除吗？',{icon: 7, title:'提示'},function(index){
                 //捉到所有被选中的，发异步进行删除
                 $.ajax({
                     url:"deleteHotel",
@@ -169,7 +169,7 @@
         var checked = [];
         var a= $(e).parent().parent().find("td").eq(1).text();
         checked.push(a);
-        layer.confirm('确认要删除吗？',function(index){
+        layer.confirm('确认要删除吗？',{icon: 7, title:'提示'},function(index){
             //捉到所有被选中的，发异步进行删除
             $.ajax({
                 url:"deleteHotel",
@@ -214,7 +214,7 @@
     var vuee;
     $(document).ready(function(){
         var index;
-        var e=new Vue({
+        vuee=new Vue({
             el:"#div",
             data:{
                 hotels:[],

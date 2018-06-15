@@ -32,7 +32,7 @@ public class HotelControl {
     @RequestMapping("hotel")
     @ResponseBody
     public Pages<Hotel> listHotel(Hotel hotel, Integer pageIndex, Integer pageSize){
-        Pages<Hotel> pageCountry=hotelBiz.listHotel(hotel, pageIndex,2);
+        Pages<Hotel> pageCountry=hotelBiz.listHotel(hotel, pageIndex,3);
         return pageCountry;
     }
     //删除地域
@@ -59,7 +59,7 @@ public class HotelControl {
             hotel.setStar(null);
             hotel.setRoomType(null);
             hotel.setLunch(null);
-            pageItem = hotelBiz.listHotel(hotel,1,2);
+            pageItem = hotelBiz.listHotel(hotel,1,3);
         }
         return pageItem;
     }
